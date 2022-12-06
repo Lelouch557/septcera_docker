@@ -1,0 +1,44 @@
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
+health_check:
+    path: /
+    methods: [GET]
+    defaults: {_controller: 'App\Infrastructure\Action\HealthCheck' }
+
+# User
+createUser:
+    path: /user
+    methods: [POST]
+    controller: App\Infrastructure\Action\User\Create
+
+# getUserOverview:
+#     path: /User/GetAll
+#     methods: [GET]
+#     controller: App\Infrastructure\Action\User\getUserOverview
+
+# getSpecificUserOverview:
+#     path: /User/GetSpecific
+#     methods: [GET]
+#     controller: App\Infrastructure\Action\User\getSpecificUserOverview
+
+# updateUser:
+#     path: /User/{id}
+#     methods: [PATCH]
+#     controller: App\Infrastructure\Action\User\updateUser
+
+# activateUser:
+#     path: /User/Activate/{id}
+#     methods: [PATCH]
+#     controller: App\Infrastructure\Action\User\activateUser
+
+# deactivateUser:
+#     path: /User/Deactivate/{id}
+#     methods: [PATCH]
+#     controller: App\Infrastructure\Action\User\deactivateUser
+
+# deleteUser:
+#     path: /User/{id}
+#     methods: [DELETE]
+#     controller: App\Infrastructure\Action\User\deleteUser
