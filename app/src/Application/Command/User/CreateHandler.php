@@ -11,6 +11,7 @@ namespace App\Application\Command\User;
 use App\Domain\Model\User\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use DateTime;
+use Ramsey\Uuid\Uuid;
 
 class CreateHandler {
     public function __construct(

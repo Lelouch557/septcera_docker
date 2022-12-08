@@ -10,15 +10,15 @@ use Ramsey\Uuid\UuidInterface;
 
 class User {
     public function __construct(
-        private readonly UuidInterface $id,
-        private readonly string $name,
-        private readonly string $password,
-        private readonly string $email,
-        private readonly string $confirmationKey,
-        private readonly string $status,
-        private readonly array $roles,
-        private readonly \DateTime $createdAt,
-        private readonly \DateTime $updatedAt
+        private UuidInterface $id,
+        private string $name,
+        private string $password,
+        private string $email,
+        private string $confirmationKey,
+        private string $status,
+        private array $roles,
+        private \DateTime $createdAt,
+        private \DateTime $updatedAt
     ) {
     }
 

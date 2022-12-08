@@ -3,16 +3,21 @@
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Model\User\User" table="user">
+    <entity name="App\Domain\Model\ChatUser\ChatUser" table="chat_user">
         <id name="id" type="uuid">
             <generator strategy="NONE"/>
         </id>
-        <field name="name" column="name" />
-        <field name="password" column="password" />
-        <field name="email" column="email" />
-        <field name="confirmationKey" column="confirmation_key" length="50"/>
-        <field name="status" column="status" length="50"/>
-        <field name="roles"/>
+        <many-to-one 
+            target-entity="App\Domain\Model\User\User"
+            field="user"
+            column="user_id"
+        />
+        <many-to-one 
+            target-entity="App\Domain\Model\Chat\Chat"
+            field="chat"
+            column="chat_id"
+        />
+
         <field name="createdAt" column="created_at" type="datetime"/>
         <field name="updatedAt" column="updated_at" type="datetime"/>
     </entity>

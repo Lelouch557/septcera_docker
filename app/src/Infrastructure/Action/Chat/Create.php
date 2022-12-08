@@ -6,9 +6,9 @@ declare(strict_types=1);
  * mine -André
  */
 
-namespace App\Infrastructure\Action\User;
+namespace App\Infrastructure\Action\Chat;
 
-use App\Application\Command\User\CreateCommand;
+use App\Application\Command\Chat\CreateCommand;
 use App\Infrastructure\Validator\Validator;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,18 +30,12 @@ class Create {
     public function __invoke(Request $request): JsonResponse {
         $this->validator->setRequest($request);
         
-        $result = substr(hash("sha256",random_bytes(50)), 50);
-
         $id = $this->validator->id();
         $this->handle(new CreateCommand(
             $id,
-            $this->validator->name(type: 'string', nullable: false, empty: false),
-            $this->validator->password(type: 'string', nullable: false, empty: false),
-            $result,
-            $this->validator->email(type: 'string', nullable: false, empty: false),
-            'Active',
-            $this->validator->roles(type: 'array', nullable: false, empty: false, choice: [['ROLE_USER'], ['ROLE_ADMIN']])
+            $this->validator->users(type: 'array', nullable: false, empty: false)
         ));
+
         return new JsonResponse(['id'=>$id], Response::HTTP_OK);
     }
 }
