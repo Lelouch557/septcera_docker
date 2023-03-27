@@ -1,0 +1,50 @@
+<?php
+
+
+
+namespace App\Infrastructure\Service;
+
+use App\Domain\Model\User\User;
+use App\Domain\Repository\UserRepositoryInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Webmozart\Assert\Assert;
+
+final class CurrentAdminService
+{
+    public function __construct(
+        private readonly RequestStack $requestStack,
+        private readonly UserRepositoryInterface $userRepository,
+    ){}
+
+    public function getCurrentUser(): ?User
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        if(empty($request)){
+            return null;
+        }
+
+        $authHeader = $request->headers->get('Authorization');
+
+        if(empty($authHeader)){
+            return null;
+        }
+
+        $jwt = str_replace('Bearer ', '', $authHeader);
+
+        $explosion = explode('.', $jwt);
+        Assert::count($explosion, 3);
+        $jwtJson = base64_decode($explosion[1]);
+
+        $jwtData = json_decode($jwtJson, true);
+        Assert::keyExists($jwtData, 'aud');
+        Assert::notEmpty($jwtData['aud']);
+        $user = $this->userRepository->getSpecific(['name' => $jwtData['sub']]);
+
+        if ($user){
+            return $user[0];
+        }
+
+        return null;
+    }
+}

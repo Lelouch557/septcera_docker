@@ -3,7 +3,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GetChatMessages(
+data class ChatMessages(
     @SerialName("user")
     val userId: String,
     @SerialName("text")

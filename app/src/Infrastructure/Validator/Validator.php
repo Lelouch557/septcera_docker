@@ -40,10 +40,21 @@ class Validator
             throw new InvalidArgumentException('Invalid JSON body.');
         }
     }
-
-    public function id($id = null, $class = null):UuidInterface{
+    public function object($id = null, $class = null) {
         if($id){
-            return ($this->em->getRepository($class)->findOneBy(['id' => $id]) !== null);
+            $result = $this->em->getRepository($class)->findOneBy(['id' => $id]);
+            if(!$result) throw new InvalidArgumentException(sprintf("%s %s does not exist.", $class, $id));
+            return $result;
+        }else{
+            return null;
+        }
+    }
+
+    public function id($id = null, $class = null) {
+        if($id){
+            $result = $this->em->getRepository($class)->findOneBy(['id' => $id]);
+            if(!$result) throw new InvalidArgumentException(sprintf("%s %s does not exist.", $class, $id));
+            return $result->getId();
         }else{
             return Uuid::uuid4();
         }
@@ -52,6 +63,10 @@ class Validator
     public function __call($name, $arguments)
     {   
         $keys = array_keys($arguments);
+        $arguments['nullable'] = $arguments['nullable'] ?? false;
+        $arguments['empty'] = $arguments['empty'] ?? false;
+        
+        if(!in_array($name, array_keys($this->data))) throw new InvalidArgumentException(sprintf('%s is not configured.', $name));
         try{
             if(gettype($this->data[$name]) != $arguments['type'] ){
                 throw new InvalidArgumentException(sprintf('%s needs to be of type %s.', $name, $arguments['type']));

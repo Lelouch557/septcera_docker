@@ -18,3 +18,26 @@ create_chat:
     path: /chat
     methods: [POST]
     controller: App\Infrastructure\Action\Chat\Create
+
+# chat user
+add_user_to_chat:
+    path: /chat_user
+    methods: [POST]
+    controller: App\Infrastructure\Action\ChatUser\Create
+
+# chat bericht
+user_chat_bericht:
+    path: /chat_bericht
+    methods: [POST]
+    controller: App\Infrastructure\Action\ChatBericht\Create
+
+get_chat_message_by_user_id:
+    path: /chat_bericht/user/{user_id}
+    methods: [GET]
+    controller: App\Infrastructure\Action\ChatBericht\GetByUser
+
+#village
+village:
+    path: /village
+    methods: [POST]
+    controller: App\Infrastructure\Action\Village\Create

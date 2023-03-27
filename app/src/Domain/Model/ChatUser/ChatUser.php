@@ -10,7 +10,7 @@ use App\Domain\Model\User\User;
 use App\Domain\Model\Chat\Chat;
 use Ramsey\Uuid\UuidInterface;
 
-final class ChatUser {
+class ChatUser {
     public function __construct(
         private UuidInterface $id, 
         private Chat $chat,

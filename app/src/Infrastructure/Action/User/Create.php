@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace App\Infrastructure\Action\User;
 
 use App\Application\Command\User\CreateCommand;
+use App\Infrastructure\Service\CurrentAdminService;
 use App\Infrastructure\Validator\Validator;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,6 +23,7 @@ class Create {
 
     public function __construct(
         MessageBusInterface $messageBus,
+        private CurrentAdminService $currentAdmin,
         private Validator $validator
     ) {
         $this->messageBus = $messageBus;

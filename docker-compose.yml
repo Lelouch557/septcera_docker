@@ -19,7 +19,10 @@ services:
   php:
     container_name: php
     build:
-      context: ./php
+      context: .
+      dockerfile: ./php/dockerfile
+      args:
+          BUILD_COMPOSER_AUTH: ${DEVELOPER_COMPOSER_AUTH}
     ports:
       - '9000:9000'
     volumes:

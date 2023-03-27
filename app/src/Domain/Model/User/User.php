@@ -7,8 +7,9 @@
 namespace App\Domain\Model\User;
 
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-class User {
+class User implements PasswordAuthenticatedUserInterface{
     public function __construct(
         private UuidInterface $id,
         private string $name,

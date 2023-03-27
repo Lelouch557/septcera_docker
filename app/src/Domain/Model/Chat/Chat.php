@@ -8,7 +8,7 @@ namespace App\Domain\Model\Chat;
 
 use Ramsey\Uuid\UuidInterface;
 
-final class Chat {
+class Chat {
     public function __construct(
         private UuidInterface $id,
         private \DateTime $createdAt,

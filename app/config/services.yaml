@@ -39,3 +39,16 @@ services:
 
     App\Infrastructure\Persistence\Doctrine\ORM\Repository\: 
         resource: '../src/Infrastructure/Persistence/Doctrine/ORM/Repository/**'
+
+    App\Infrastructure\Security\CurrentAdminService: '@App\Infrastructure\Service\CurrentAdminService'
+
+    App\Infrastructure\DTO\Input\Village\: 
+        resource: '../src/Infrastructure/DTO/Input/Village/**'
+        tags: ['controller.service_arguments']
+
+    App\Infrastructure\Login\SecurityUserResolver:
+        arguments:
+            - '@security.user_providers'
+            - '@security.password_hasher'
+        tags:
+            - { name: kernel.event_listener, event: league.oauth2_server.event.user_resolve, method: onUserResolve }
