@@ -50,4 +50,4 @@ specificVillage:
 loginView:
     path: /login
     methods: [GET]
-    controller: App\View\Account\LoginView
+    controller: App\View\Login\LoginView
