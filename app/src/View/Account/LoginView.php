@@ -95,11 +95,12 @@ class LoginView {
                             "scope": "web"
                         };
                         $.post(
-                            "http://localhost:8080/token", 
+                            "http://127.0.0.1:8080/token", 
                             data,
                             function(returnData){
                                 try{
                                     document.cookie = JSON.stringify(returnData);
+                                    window.location.href = "http://127.0.0.1:8080/villageView";
                                 }catch($e){}
                             }
                         );

@@ -43,7 +43,7 @@ createVillage:
     controller: App\Infrastructure\Action\Village\Create
 
 specificVillage:
-    path: /village
+    path: /village/{parameters}
     methods: [GET]
     controller: App\Infrastructure\Action\Village\GetSpecific
 
@@ -51,3 +51,8 @@ loginView:
     path: /login
     methods: [GET]
     controller: App\View\Account\LoginView
+
+villageView:
+    path: /villageView
+    methods: [GET]
+    controller: App\View\Screens\VillageView

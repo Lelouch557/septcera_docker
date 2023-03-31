@@ -24,8 +24,12 @@ final class GetSpecificDTO
     ){
         $content = $this->requestStack->getCurrentRequest()->getContent();
         $data = json_decode($content, true);
+        if($data == null){
+            $data = $this->requestStack->getCurrentRequest()->attributes->get("parameters");
+            $data = (array) json_decode($data);
+        }
 
-        $this->parameters = $data['parameters'];
+        $this->parameters = (array) $data['parameters'];
 
         $this->DTOInterface->validate($this);
     }

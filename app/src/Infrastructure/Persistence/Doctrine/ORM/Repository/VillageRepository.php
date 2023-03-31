@@ -22,6 +22,10 @@ class VillageRepository implements VillageRepositoryInterface {
         return $this->em->getRepository(Village::class)->findBy($parameters);
     }
 
+    public function getSpecificOne(array $parameters): ?Village {
+        return $this->em->getRepository(Village::class)->findOneBy($parameters);
+    }
+
     public function delete(Village $village): void {
         $this->em->remove($village);
     }
