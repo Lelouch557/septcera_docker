@@ -9,9 +9,8 @@ declare(strict_types=1);
 namespace App\Application\Query\ChatBericht;
 
 use App\Domain\Model\User\User;
-use Ramsey\Uuid\UuidInterface;
 
-class SpecificQuery { 
+class SpecificQuery {
     public function __construct(
         private ?User $userId = null
     ) {

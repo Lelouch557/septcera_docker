@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace App\Application\Query\ChatBericht;
 
 use App\Domain\Repository\ChatBerichtRepositoryInterface;
-use Ramsey\Uuid\UuidInterface;
 
 class SpecificHandler {
     public function __construct(
@@ -17,10 +16,11 @@ class SpecificHandler {
     ) {
     }
 
-    public function __invoke(SpecificQuery $query)
-    {
+    public function __invoke(SpecificQuery $query) {
         $parameters = [];
-        if($query->getUser()) $parameters['user'] = $query->getUser();
+        if ($query->getUser()) {
+            $parameters['user'] = $query->getUser();
+        }
 
         return $this->chatBerichtRepository->getSpecific($parameters);
     }

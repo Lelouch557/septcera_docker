@@ -2,11 +2,6 @@ kernel:
     resource: ../src/Kernel.php
     type: annotation
 
-health_check:
-    path: /
-    methods: [GET]
-    defaults: {_controller: 'App\Infrastructure\Action\HealthCheck' }
-
 # User
 create_user:
     path: /user
@@ -47,12 +42,29 @@ specificVillage:
     methods: [GET]
     controller: App\Infrastructure\Action\Village\GetSpecific
 
+ownVillage:
+    path: /ownVillages
+    methods: [GET]
+    controller: App\Infrastructure\Action\Village\GetOwn
+
+
+#views
 loginView:
     path: /login
     methods: [GET]
     controller: App\View\Account\LoginView
 
+registerView:
+    path: /register
+    methods: [GET]
+    controller: App\View\Account\Register
+
 villageView:
     path: /villageView
     methods: [GET]
     controller: App\View\Screens\VillageView
+
+#general
+basic:
+    path: /
+    controller: App\View\Account\LoginView

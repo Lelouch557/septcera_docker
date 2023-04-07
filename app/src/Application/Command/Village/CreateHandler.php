@@ -8,17 +8,10 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Village;
 
-use App\Domain\Model\Chat\Chat;
-use App\Domain\Model\ChatUser\ChatUser;
 use App\Domain\Model\Village\Village;
-use App\Domain\Repository\ChatRepositoryInterface;
-use App\Domain\Repository\ChatUserRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Repository\VillageRepositoryInterface;
 use App\Infrastructure\Service\CurrentAdminService;
-use DateTime;
-use Exception;
-use Ramsey\Uuid\Uuid;
 
 final class CreateHandler {
     public function __construct(
@@ -30,9 +23,11 @@ final class CreateHandler {
 
     public function __invoke(CreateCommand $command): void {
         $user = $this->adminService->getCurrentUser();
-        $villageExists = $this->villageRepo->getSpecific(["x" => $command->getX(), "y" => $command->getY()]);
-        
-        if($villageExists) throw new Exception('needs custom exception. something already exists on this spot.');
+        $villageExists = $this->villageRepo->getSpecific(['x' => $command->getX(), 'y' => $command->getY()]);
+
+        if ($villageExists) {
+            throw new \Exception('needs custom exception. something already exists on this spot.');
+        }
 
         $village = new Village(
             $command->getId(),
@@ -41,8 +36,8 @@ final class CreateHandler {
             $command->getType(),
             $command->getX(),
             $command->getY(),
-            new DateTime(),
-            new DateTime()
+            new \DateTime(),
+            new \DateTime()
         );
 
         $this->villageRepo->persist($village);

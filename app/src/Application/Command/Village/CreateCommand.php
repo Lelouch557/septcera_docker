@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Village;
 
-use App\Domain\Model\User\User;
 use Ramsey\Uuid\UuidInterface;
 
 final class CreateCommand {
@@ -24,15 +23,19 @@ final class CreateCommand {
     public function getId(): UuidInterface {
         return $this->id;
     }
+
     public function getName(): string {
         return $this->name;
     }
+
     public function getType(): string {
         return $this->type;
     }
+
     public function getX(): int {
         return $this->x;
     }
+
     public function getY(): int {
         return $this->z;
     }

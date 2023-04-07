@@ -19,9 +19,11 @@ class Chat {
     public function getId(): UuidInterface {
         return $this->id;
     }
+
     public function getCreatedAt(): void {
         $this->createdAt = $this->createdAt;
     }
+
     public function getUpdatedAt(): void {
         $this->updatedAt = $this->updatedAt;
     }

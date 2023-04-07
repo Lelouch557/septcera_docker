@@ -8,25 +8,21 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\DTO\Input;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-
-class Validator
-{
+class Validator {
     public function __construct(
         private readonly RequestStack $requestStack,
         private ValidatorInterface $validator
-    ){
+    ) {
     }
-    public function validate($DTO){
+
+    public function validate($DTO) {
         $request = $this->requestStack->getCurrentRequest();
         $errors = $this->validator->validate($DTO);
-    
+
         if (count($errors) > 0) {
             /*
             * Uses a __toString method on the $errors variable which is a
@@ -34,13 +30,13 @@ class Validator
             * for debugging.
             */
             $errorsString = (string) $errors;
-            $conCat = explode(".", $errorsString);
+            $conCat = explode('.', $errorsString);
             $errorArray = [];
-            for($i = 1; $i < count($conCat); $i+=2){
-                $a = explode(":", $conCat[$i]);
-                array_push($errorArray, sprintf("Variable %s %s.", $a[0], substr($a[1], 15)));
+            for ($i = 1; $i < count($conCat); $i += 2) {
+                $a = explode(':', $conCat[$i]);
+                array_push($errorArray, sprintf('Variable %s %s.', $a[0], substr($a[1], 15)));
             }
-            $responseString = ["response" => $errorArray]; 
+            $responseString = ['response' => $errorArray];
             $response = new JsonResponse(
                 $responseString,
                 501);

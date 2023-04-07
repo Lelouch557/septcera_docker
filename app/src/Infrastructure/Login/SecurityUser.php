@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class SecurityUser implements UserInterface, PasswordAuthenticatedUserInterface{
+class SecurityUser implements UserInterface, PasswordAuthenticatedUserInterface {
     public function __construct(
         private UuidInterface $id,
         private string $name,
@@ -19,12 +19,12 @@ class SecurityUser implements UserInterface, PasswordAuthenticatedUserInterface{
         private array $roles,
     ) {
     }
-    public function getUserIdentifier(): string
-    {
+
+    public function getUserIdentifier(): string {
         return $this->name;
     }
-    public function eraseCredentials()
-    {
+
+    public function eraseCredentials() {
         $this->password = '';
         $this->email = '';
         $this->name = '';

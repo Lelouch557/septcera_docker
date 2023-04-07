@@ -6,9 +6,7 @@
 
 namespace App\Infrastructure\Persistence\Doctrine\ORM\Repository;
 
-use App\Domain\Model\User\User;
 use App\Domain\Model\Village\Village;
-use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Repository\VillageRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 

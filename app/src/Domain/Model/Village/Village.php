@@ -7,10 +7,9 @@
 namespace App\Domain\Model\Village;
 
 use App\Domain\Model\User\User;
-use Ramsey\Uuid\Type\Integer;
 use Ramsey\Uuid\UuidInterface;
 
-class Village{
+class Village {
     public function __construct(
         private UuidInterface $id,
         private User $user,

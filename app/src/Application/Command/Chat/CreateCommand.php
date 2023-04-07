@@ -20,6 +20,7 @@ final class CreateCommand {
     public function getId(): UuidInterface {
         return $this->id;
     }
+
     public function getUsers(): array {
         return $this->users;
     }

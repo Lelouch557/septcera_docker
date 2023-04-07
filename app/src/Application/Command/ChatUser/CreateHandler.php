@@ -12,8 +12,6 @@ use App\Domain\Model\ChatUser\ChatUser;
 use App\Domain\Repository\ChatRepositoryInterface;
 use App\Domain\Repository\ChatUserRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
-use DateTime;
-use Exception;
 use Ramsey\Uuid\Uuid;
 
 final class CreateHandler {
@@ -29,8 +27,8 @@ final class CreateHandler {
             Uuid::uuid4(),
             $this->ChatRepository->getSpecific(['id' => $command->getChatId()])[0],
             $this->UserRepository->getSpecific(['id' => $command->getUserId()])[0],
-            new DateTime(),
-            new DateTime()
+            new \DateTime(),
+            new \DateTime()
         );
         $this->chatUserRepository->persist($chatUser);
     }

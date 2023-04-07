@@ -9,13 +9,9 @@ declare(strict_types=1);
 namespace App\Application\Command\ChatBericht;
 
 use App\Domain\Model\ChatBericht\ChatBericht;
-use App\Domain\Model\ChatUser\ChatUser;
 use App\Domain\Repository\ChatBerichtRepositoryInterface;
 use App\Domain\Repository\ChatRepositoryInterface;
-use App\Domain\Repository\ChatUserRepositoryInterface;
 use App\Domain\Repository\UserRepositoryInterface;
-use DateTime;
-use Exception;
 use Ramsey\Uuid\Uuid;
 
 final class CreateHandler {
@@ -27,14 +23,13 @@ final class CreateHandler {
     }
 
     public function __invoke(CreateCommand $command): void {
-    
         $chatBericht = new ChatBericht(
             Uuid::uuid4(),
             $this->ChatRepository->getSpecific(['id' => $command->getChatId()])[0],
             $this->UserRepository->getSpecific(['id' => $command->getUserId()])[0],
             $command->getText(),
-            new DateTime(),
-            new DateTime()
+            new \DateTime(),
+            new \DateTime()
         );
         $this->ChatBerichtRepository->persist($chatBericht);
     }

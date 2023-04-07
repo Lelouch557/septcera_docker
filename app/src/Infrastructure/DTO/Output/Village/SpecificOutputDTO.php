@@ -6,46 +6,41 @@
 
 declare(strict_types=1);
 
+/*
+ * mine -André
+ */
+
 namespace App\Infrastructure\DTO\Output\Village;
 
-use App\Domain\Model\Article\Article;
 use App\Domain\Model\Village\Village;
-use OpenApi\Annotations as OA;
 
-final class SpecificOutputDTO implements \JsonSerializable
-{
+final class SpecificOutputDTO implements \JsonSerializable {
     public function __construct(
         private Village $village
     ) {
     }
 
-    public function getId(): string
-    {
+    public function getId(): string {
         return $this->village->getId()->toString();
     }
 
-    public function getUser(): string
-    {
+    public function getUser(): string {
         return $this->village->getUser()->getId()->toString();
     }
 
-    public function getName(): string
-    {
+    public function getName(): string {
         return $this->village->getName();
     }
 
-    public function getType(): string
-    {
+    public function getType(): string {
         return $this->village->getType();
     }
 
-    public function getX(): string
-    {
+    public function getX(): string {
         return strval($this->village->getX());
     }
 
-    public function getY(): string
-    {
+    public function getY(): string {
         return strval($this->village->getY());
     }
 
@@ -54,24 +49,21 @@ final class SpecificOutputDTO implements \JsonSerializable
     //     return $this->village->getStatus();
     // }
 
-    public function getCreatedAt(): string
-    {
+    public function getCreatedAt(): string {
         return $this->village->getCreatedAt()->format('c');
     }
 
-    public function getUpdatedAt(): string
-    {
+    public function getUpdatedAt(): string {
         return $this->village->getUpdatedAt()->format('c');
     }
 
-    public function jsonSerialize(): mixed
-    {
+    public function jsonSerialize(): mixed {
         return [
             'id' => $this->getId(),
             'user_id' => $this->getUser(),
             'name' => $this->getName(),
             'type' => $this->getType(),
-            'status' => "not implemented",
+            'status' => 'not implemented',
             'x' => $this->getX(),
             'y' => $this->getY(),
             'created_at' => $this->getCreatedAt(),

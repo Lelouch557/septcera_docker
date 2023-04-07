@@ -1,6 +1,8 @@
 <?php
 
-
+/*
+ * mine -André
+ */
 
 namespace App\Infrastructure\Service;
 
@@ -9,24 +11,23 @@ use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Webmozart\Assert\Assert;
 
-final class CurrentAdminService
-{
+final class CurrentAdminService {
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly UserRepositoryInterface $userRepository,
-    ){}
+    ) {
+    }
 
-    public function getCurrentUser(): ?User
-    {
+    public function getCurrentUser(): ?User {
         $request = $this->requestStack->getCurrentRequest();
 
-        if(empty($request)){
+        if (empty($request)) {
             return null;
         }
 
         $authHeader = $request->headers->get('Authorization');
 
-        if(empty($authHeader)){
+        if (empty($authHeader)) {
             return null;
         }
 
@@ -41,7 +42,7 @@ final class CurrentAdminService
         Assert::notEmpty($jwtData['aud']);
         $user = $this->userRepository->getSpecific(['name' => $jwtData['sub']]);
 
-        if ($user){
+        if ($user) {
             return $user[0];
         }
 

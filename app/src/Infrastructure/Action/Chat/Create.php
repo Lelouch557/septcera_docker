@@ -10,7 +10,6 @@ namespace App\Infrastructure\Action\Chat;
 
 use App\Application\Command\Chat\CreateCommand;
 use App\Infrastructure\Validator\Validator;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,13 +28,13 @@ class Create {
 
     public function __invoke(Request $request): JsonResponse {
         $this->validator->setRequest($request);
-        
+
         $id = $this->validator->id();
         $this->handle(new CreateCommand(
             $id,
             $this->validator->users(type: 'array', nullable: false, empty: false)
         ));
 
-        return new JsonResponse(['id'=>$id], Response::HTTP_OK);
+        return new JsonResponse(['id' => $id], Response::HTTP_OK);
     }
 }

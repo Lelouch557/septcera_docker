@@ -8,16 +8,12 @@ declare(strict_types=1);
 
 namespace App\View\Screens;
 
-use App\Domain\Repository\VillageRepositoryInterface;
-use App\Infrastructure\Persistence\Doctrine\ORM\Repository\VillageRepository;
-use App\Infrastructure\Service\CurrentAdminService;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\HandleTrait;
 
 class VillageView {
     use HandleTrait;
-    
+
     public function __invoke(): Response {
         $html = '
             <body>
@@ -48,34 +44,34 @@ class VillageView {
                     <div><label>coordinates: </label><label id="coordinates"></label></div>
                 </div>
 
-
                 <script>
-                    let token = document.cookie;
+                    let link = "http://" + (window.location.href).split("/")[2];
+                    let token = localStorage.getItem("token");
                     token = JSON.parse(token)["access_token"];
                     token = "Bearer " + token;
 
                     $.ajax({
-                        url: "http://127.0.0.1:8080/village/{ \"parameters\": {\"user\": \"67188c46-8edf-40c4-8df3-3927828735f7\"}}", 
+                        url: link + "/village/{ \"parameters\": {\"user\": \"67188c46-8edf-40c4-8df3-3927828735f7\"}}",
                         headers: {
                             "Authorization": token,
                             "Content-Type": "application/json"
                         },
                         method: "GET",
                         success: function(data){
-                            // $("#type").html(data[0].type);
-                            // $("#name").html(data[0].name);
-                            // $("#coordinates").html(data[0].x + ", " + data[0].y);
+                            $("#type").html(data[0].type);
+                            $("#name").html(data[0].name);
+                            $("#coordinates").html(data[0].x + ", " + data[0].y);
                         }
                     }).always(function(data) {
-                        if(data.status != 200){
-                            window.location.href = "http://127.0.0.1:8080/login";
+                        if(!data){
+                            window.location.href = link + "/login";
                         }
-                    }
+                    });
                 </script>
             </body>';
 
         echo $html;
+
         return new Response();
     }
 }
-

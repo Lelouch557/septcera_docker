@@ -12,9 +12,7 @@ use App\Infrastructure\DTO\Input\Validator;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints as Assert;
 
-final class CreateDTO
-{
-
+final class CreateDTO {
     #[Assert\NotBlank]
     #[Assert\Type('string')]
     private $text;
@@ -34,7 +32,7 @@ final class CreateDTO
     public function __construct(
         private readonly RequestStack $requestStack,
         private Validator $DTOInterface
-    ){
+    ) {
         $content = $this->requestStack->getCurrentRequest()->getContent();
         $data = json_decode($content, true);
 
@@ -45,20 +43,20 @@ final class CreateDTO
 
         $this->DTOInterface->validate($this);
     }
-    
-    public function getName(){
+
+    public function getName() {
         return $this->text;
     }
-    
-    public function getType(){
+
+    public function getType() {
         return $this->type;
     }
-    
-    public function getX(){
+
+    public function getX() {
         return $this->x;
     }
-    
-    public function getY(){
+
+    public function getY() {
         return $this->y;
     }
 }

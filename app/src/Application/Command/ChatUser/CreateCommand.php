@@ -21,9 +21,11 @@ final class CreateCommand {
     public function getId(): UuidInterface {
         return $this->id;
     }
+
     public function getUserId(): UuidInterface {
         return $this->userId;
     }
+
     public function getChatId(): UuidInterface {
         return $this->chatId;
     }

@@ -84,6 +84,7 @@ class LoginView {
 
                 <script>
                     function login(){
+                        let link = String("http://" + (window.location.href).split("/")[2]);
                         let user_name = $("#user_name").val();
                         let password = $("#password").val();
                         var data = {
@@ -95,12 +96,12 @@ class LoginView {
                             "scope": "web"
                         };
                         $.post(
-                            "http://127.0.0.1:8080/token", 
+                            link + "/token", 
                             data,
                             function(returnData){
                                 try{
-                                    document.cookie = JSON.stringify(returnData);
-                                    window.location.href = "http://127.0.0.1:8080/villageView";
+                                    localStorage.setItem("token", JSON.stringify(returnData));
+                                    window.location.href = link + "/villageView";
                                 }catch($e){}
                             }
                         );
@@ -109,7 +110,7 @@ class LoginView {
             </body>';
 
         echo $html;
+
         return new Response();
     }
 }
-

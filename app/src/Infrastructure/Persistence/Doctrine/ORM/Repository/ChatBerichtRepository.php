@@ -8,7 +8,6 @@ namespace App\Infrastructure\Persistence\Doctrine\ORM\Repository;
 
 use App\Domain\Model\ChatBericht\ChatBericht;
 use App\Domain\Repository\ChatBerichtRepositoryInterface;
-use App\Domain\Repository\ChatUserRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ChatBerichtRepository implements ChatBerichtRepositoryInterface {
