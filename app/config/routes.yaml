@@ -59,6 +59,11 @@ registerView:
     methods: [GET]
     controller: App\View\Account\Register
 
+ForgotPassword:
+    path: /ForgotPassword
+    methods: [GET]
+    controller: App\View\Account\ForgotPassword
+
 villageView:
     path: /villageView
     methods: [GET]

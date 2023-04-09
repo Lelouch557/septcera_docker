@@ -32,8 +32,6 @@ class CreateHandler {
             throw new EntityAlreadyExistsException("User", $existingUserByMail[0]->getEmail());
         }
 
-        print_r($command->getEmail());
-        die;
         $user = new User(
             $command->getId(),
             $command->getUserName(),

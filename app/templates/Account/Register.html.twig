@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>Register</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        
+        {% block stylesheets %}
+            <link href="{{ asset('CSS/Main.css') }}" rel="stylesheet" />
+        {% endblock %}
+    </head>
+    <body>
+        <div class="login">
+            <form>
+                <p class="hidden" id="user_error_msg" style="">User already exists</p>
+                <input class="login-input" type="text" id="user_name" placeholder="username"/>
+                <input class="login-input" type="email" id="email" placeholder="e-mail"/>
+                <p class="hidden" id="password_requirements" style="">Password needs to be at least 8 characters long</p>
+                <input class="login-input" type="password" id="password_one" autocomplete="new-password" placeholder="password"/>
+                <input class="login-input" type="password" id="password_two" autocomplete="off" placeholder="repeat password"/>
+                <input class="button" type="button" value="Login" onclick="login()"/>
+            </form>
+        </div>
+
+        <script>
+            var response_requests = 0;
+            function login(){
+                let user_name = $("#user_name").val();
+                let password = $("#password_one").val();
+                let email = $("#email").val();
+
+                password = password.trim();
+                email = email.trim();
+                var valid_password = pass_is_valid(password);
+                var valid_email = mail_is_valid(email);
+
+                
+                var data = {
+                    "name": user_name,
+                    "password": password,
+                    "email": email
+                };
+
+                if(valid_password && valid_email){
+                    sendRequest(data);
+                }
+
+            }
+            function sendRequest(data){
+                json_data = JSON.stringify(data);
+                let link = String("http://" + (window.location.href).split("/")[2]);
+                
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", link + "/user");
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.send(json_data);
+                xhr.onreadystatechange = function(){
+                    response_requests++;
+                    if(xhr.status == 409){
+                        $("#user_name").css("border-color", "red");
+                        $("#user_error_msg").fadeIn("fast");
+                    }
+                    if(xhr.status == 200){
+                        if(response_requests % 3 == 0){
+                            var login_data = {
+                                "username": data.name,
+                                "password": data.password,
+                                "grant_type": "password",
+                                "client_id": "4d62ce5da7760cdcf752565f47c8bce1",
+                                "client_secret": "ebdfaa9dd96f7c04f218f32c4644e144d4779ba42feb6f0db57569a29fdb822c4311786d56fd053f946a58253c49a4e7f43da69752f9e9f8b440b8df686d82b4",
+                                "scope": "web"
+                            };
+                            $.post(
+                                link + "/token", 
+                                login_data,
+                                function(returnData){
+                                    try{
+                                        localStorage.setItem("token", JSON.stringify(returnData));
+                                        window.location.href = link + "/villageView";
+                                    }catch($e){}
+                                }
+                            );
+                        }
+                    }
+                };
+            }
+            function pass_is_valid(password){                    
+                if(password.length > 8){
+                    if(password == $("#password_two").val()){
+                        return true;
+                    }
+                } 
+                $("#password_one").css("border-color", "red");
+                $("#password_two").css("border-color", "red");
+                $("#password_requirements").fadeIn("fast");
+                return false;
+            }
+
+            function mail_is_valid(email){
+                var at = email.split("@");
+                if(at[0].length > 0 && at[1].length > 0){
+                    var dot = at[1].split(".");
+                    if(dot[0].length > 0 && dot[1].length > 0){
+                        return true;
+                    }
+                }
+                $("#password_one").css("border-color", "red");
+                $("#password_two").css("border-color", "red");
+                $("#password_requirements").fadeIn("fast");
+                return false;
+            }
+        </script>
+    </body>
+</html>

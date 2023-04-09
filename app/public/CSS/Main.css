@@ -1,0 +1,57 @@
+
+body{
+    background-image: url("Naamloos.png");
+    background-color: #f4faff;
+}
+form{
+    display: grid;
+}
+.button{
+    padding: 0.5em;
+    cursor: pointer;
+    margin-top: 15px;
+    border: 0px;
+    background-color: #009dff;
+    border-radius: 7px;
+    color: white;
+    align-self: center;
+    width: 20%;
+    margin-left: 40%;
+}
+.login{
+    width: 20%;
+    position: absolute;
+    padding: 1em;
+    padding-bottom: 0;
+    box-shadow: 0 0 50px 0px #b8b8b84f;
+    left: 40%;
+    top: 40%;
+    background-color: white;
+    border-radius: 8px;
+}
+.login-input{
+    display: block;
+    width: 100%;
+    padding: 0.333rem 0.75rem;
+    font-size: 1rem;
+    margin-bottom: 0.2em;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #2f2f3f;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bbbccc;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.3rem;
+    transition: border-color .18s ease-in-out,box-shadow .18s ease-in-out;
+}
+.login-input:focus{
+    background-color: #fff;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0,103,255,.25);
+}
+.hidden{
+    display: none;
+}
