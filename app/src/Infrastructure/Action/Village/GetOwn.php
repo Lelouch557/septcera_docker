@@ -28,8 +28,6 @@ class GetOwn {
     }
 
     public function __invoke(): JsonResponse {
-    // print_r($this->currentAdminService->getCurrentUser());
-    // die;
         $data = $this->handle(new SpecificQuery(
             ["user" => $this->currentAdminService->getCurrentUser()]
         )

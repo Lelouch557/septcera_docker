@@ -8,6 +8,11 @@ create_user:
     methods: [POST]
     controller: App\Infrastructure\Action\User\Create
 
+GetById:
+    path: /user/{id}
+    methods: [GET]
+    controller: App\Infrastructure\Action\User\GetById
+
 # chat
 create_chat:
     path: /chat
@@ -21,10 +26,15 @@ add_user_to_chat:
     controller: App\Infrastructure\Action\ChatUser\Create
 
 # chat bericht
-user_chat_bericht:
+create_user_chat_bericht:
     path: /chat_bericht
     methods: [POST]
     controller: App\Infrastructure\Action\ChatBericht\Create
+
+get_chat_message_by_chat_id:
+    path: /chatBericht/{id}
+    methods: [GET]
+    controller: App\Infrastructure\Action\ChatBericht\GetByChatId
 
 get_chat_message_by_user_id:
     path: /chat_bericht/user/{user_id}
@@ -73,3 +83,6 @@ villageView:
 basic:
     path: /
     controller: App\View\Account\LoginView
+test:
+    path: /test
+    controller: App\View\TestViesdfw

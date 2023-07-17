@@ -69,7 +69,7 @@ league_oauth2_server:
             entity_manager:       default
 
     # Set a custom prefix that replaces the default 'ROLE_OAUTH2_' role prefix
-    role_prefix:          ROLE_
+    role_prefix:          ROLE_OAUTH2_
 
     client:
         # Set a custom client class. Must be a League\Bundle\OAuth2ServerBundle\Model\Client

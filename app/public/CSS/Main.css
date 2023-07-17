@@ -1,5 +1,6 @@
 
 body{
+    margin: 0px;
     background-image: url("Naamloos.png");
     background-color: #f4faff;
 }
@@ -54,4 +55,29 @@ form{
 }
 .hidden{
     display: none;
+}
+#profile_settings{
+    width: 10%;
+    background-color: red;
+}
+.header{
+    width: 100%;
+    position: fixed;
+    display: flex;
+    flex-direction: row-reverse;
+    height: 5%;
+    background-color: #ff9797;
+}
+.userName{
+    padding: 8%;
+    display: block;
+}
+.hiddenProfileOptions{
+    width: 100%;
+    display: block;
+    padding: 3%;
+    background-color: #f4a5a5;
+}
+.hiddenProfileOptions:hover {
+    cursor: pointer;
 }

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% set players = chatters %}
+
+{% block title %}Village{% endblock %}
+{% block stylesheets %}
+<style>
+    body{
+        background-color: #f4faff;
+    }
+    form{
+        display: grid;
+    }
+    .login{
+        width: 20%;
+        position: absolute;
+        padding: 1em;
+        padding-bottom: 0;
+        box-shadow: 0 0 50px 0px #b8b8b84f;
+        left: 40%;
+        top: 40%;
+        background-color: white;
+        border-radius: 8px;
+    }
+</style>
+{% endblock %}
+{% block body %} 
+    <form class="login">
+        <div><label>type: </label><label id="type"></label></div>
+        <div><label>name: </label><label id="name"></label></div>
+        <div><label>coordinates: </label><label id="coordinates"></label></div>
+    </form>
+{% endblock %}  
+{% block javascript %}  
+    <script>
+        let link = "http://" + (window.location.href).split("/")[2];
+        let token = getCookie("token").toString();
+        token = "Bearer " + token;
+
+        $.ajax({
+            url: link + "/ownVillages",
+            headers: {
+                "Authorization": token,
+                "Content-Type": "application/json"
+            },
+            method: "GET",
+            success: function(data){
+                $("#type").html(data[0].type);
+                $("#name").html(data[0].name);
+                $("#coordinates").html(data[0].x + ", " + data[0].y);
+            }
+        }).always(function(data) {
+            if(!data){
+                window.location.href = link + "/login";
+            }
+        });
+    </script>
+{% endblock %}

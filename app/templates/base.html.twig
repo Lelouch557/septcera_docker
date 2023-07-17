@@ -1,19 +1,168 @@
-<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+        <link href="{{ asset('CSS/Main.css') }}" rel="stylesheet" />
+        {% block stylesheets %}{% endblock %}
+        <style>
+            body {
+                font-size: 1vw;
+            }
+            #footer{
+                height: 5%;
+                background-color: red;
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+            }
+            #chat{
+                width: 30%;
+                background-color: blue;
+                right: 0px;
+                position: absolute;
+                height: 993%;
+                bottom: -893%;
+            }
+            #players{
+                width: 100%;
+                background-color: green;
+                height: 90%;
+            }
+            .player{
+                width: 96%;
+                background-color: yellow;
+                padding: 2%;  
+                height: 5%;
+            }
+            #playerSpacer{
+                width: 100%;
+                background-color: black;
+                height: 3px;
+            }
+            #chatSpacer{
+                margin-top:9%;
+                width:100%;
+                background-color:black;
+                height:3px;
+            }
+            .player label{
+                display: block;
+                width: fit-content;
+                margin: auto;
+            }
+        </style>
     </head>
     <body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="{{ asset('Javascript/chat.js') }}"></script>
+        <div class="header">
+            <div id="profile_settings">
+                <label class="userName" onclick="toggleProfileOptions()"></label>
+                <label class="hiddenProfileOptions" id="logout" onclick="log_out()">logout</label>
+            </div>
+        </div>
         {% block body %}{% endblock %}
+        <div id="footer">
+            <div id="chat" onclick="toggleChatOverview()">
+                <div id="chatSpacer"></div>
+                <div id="players">
+                    {% for player in players %}
+                        <div class="player {{player.name}}" onclick="nameToTitle('{{player.name}}')" chat-id=>
+                            <label>{{ player.name|e }}</label>
+                        </div>
+                        <div id="playerSpacer" class="{{player.name}}"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <script>
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+
+            var conversation = false;
+            function toggleChatConversation(){
+
+            }
+
+            function getConversation(){
+                $.ajax({
+                    url: link + "/ownVillages",
+                    headers: {
+                        "Authorization": token,
+                        "Content-Type": "application/json"
+                    },
+                    method: "GET",
+                    success: function(data){
+                        $("#type").html(data[0].type);
+                        $("#name").html(data[0].name);
+                        $("#coordinates").html(data[0].x + ", " + data[0].y);
+                    }
+                }).always(function(data) {
+                    if(!data){
+                        window.location.href = link + "/login";
+                    }
+                });
+            }
+
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+            }
+
+            var showChats = false;
+            function nameToTitle(name){
+                var items = $("#players div");
+                for(var i=0; i < items.length; i++){
+                    var item = items[i];
+                    var clas = item.attributes["class"].value;
+
+                    if(!clas.includes(name)){
+                        $(item).slideToggle(200);
+                    }
+                }
+            }
+
+            var seeChatOverview = false;
+            function toggleChatOverview(){
+                if(seeChatOverview){
+                    seeChatOverview = false;
+                    $('#chat').css('bottom', '-893%');
+                }else{
+                    seeChatOverview = true;
+                    $('#chat').css('bottom', '0%');
+                }
+
+            }
+
+            function log_out(){
+                setCookie("token", null, 0);
+                window.location.href = "http://" + (window.location.href).split("/")[2] + "/login";
+            }
+
+            function toggleProfileOptions(){
+                $(".hiddenProfileOptions").toggle();
+            }
+
+            $(".hiddenProfileOptions").toggle();
+            
+            if(getCookie("token") == null){
+                window.location.href = "http://" + (window.location.href).split("/")[2] + "/login";
+            }
+            $(".userName").html(getCookie("user_name"));
+        </script>
+        {% block javascript %}{% endblock %}
     </body>
 </html>

@@ -9,10 +9,13 @@ declare(strict_types=1);
 namespace App\Infrastructure\Action\User;
 
 use App\Application\Command\User\CreateCommand;
+use App\Application\Command\Village\CreateCommand as VillageCreateCommand;
 use App\Application\Exception\EntityAlreadyExistsException;
+use App\Domain\Model\User\User;
 use App\Infrastructure\DTO\Input\User\CreateDTO;
 use App\Infrastructure\Service\CurrentAdminService;
 use App\Infrastructure\Validator\Validator;
+use DateTime;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,6 +41,7 @@ class Create {
 
         $result = substr(hash('sha256', random_bytes(50)), 50);
     	try{
+            
             $this->handle(new CreateCommand(
                 $id,
                 $this->createDTO->getName(),
@@ -45,21 +49,12 @@ class Create {
                 $this->createDTO->getEmail(),
                 $result,
                 'Active',
-                [['ROLE_USER']]
+                ['ROLE_USER']
             ));
-        }catch(EntityAlreadyExistsException | HandlerFailedException $e){
-            return new JsonResponse(["Response: " => explode(":", $e->getMessage())[1]], 409);
-        }
 
-        $village_id = Uuid::uuid4();
-        $this->handle(new CreateCommand(
-            $village_id,
-            $this->createDTO->getName() . "'s village",
-            "city",
-            $this->createDTO->getX(),
-            $this->createDTO->getY()
-        )
-        );
+        }catch(EntityAlreadyExistsException | HandlerFailedException $e){
+            return new JsonResponse(["Response" => explode(":", $e->getMessage())], 409);
+        }
 
         return new JsonResponse(['id' => $id], Response::HTTP_OK);
     }

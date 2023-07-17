@@ -19,7 +19,7 @@ final class UserProvider implements UserProviderInterface, PasswordUpgraderInter
     ) {
     }
 
-    public function loadUserByIdentifier(string $identifier): SecurityUser {
+    public function loadUserByIdentifier(string $identifier): SecurityUser {    
         $user = $this->em->getRepository(USER::class)->findOneBy(['name' => $identifier]);
         try {
             $securityUser = new SecurityUser(

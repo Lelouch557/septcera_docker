@@ -12,17 +12,18 @@
             <form>
                 <p class="hidden" id="user_error_msg" style="">User already exists</p>
                 <input class="login-input" type="text" id="user_name" placeholder="username"/>
+                <p class="hidden" id="email_requirements" style="">Must be a valid email</p>
                 <input class="login-input" type="email" id="email" placeholder="e-mail"/>
-                <p class="hidden" id="password_requirements" style="">Password needs to be at least 8 characters long</p>
+                <p class="hidden" id="password_requirements" style="">Password needs to be at least 8 characters long and filled in twice</p>
                 <input class="login-input" type="password" id="password_one" autocomplete="new-password" placeholder="password"/>
                 <input class="login-input" type="password" id="password_two" autocomplete="off" placeholder="repeat password"/>
-                <input class="button" type="button" value="Login" onclick="login()"/>
+                <input class="button" type="button" value="Register" onclick="register()"/>
             </form>
         </div>
 
         <script>
             var response_requests = 0;
-            function login(){
+            function register(){
                 let user_name = $("#user_name").val();
                 let password = $("#password_one").val();
                 let email = $("#email").val();
@@ -31,7 +32,6 @@
                 email = email.trim();
                 var valid_password = pass_is_valid(password);
                 var valid_email = mail_is_valid(email);
-
                 
                 var data = {
                     "name": user_name,
@@ -44,7 +44,9 @@
                 }
 
             }
+            var response = '';
             function sendRequest(data){
+                $("#user_name").css("border-color", "#bbbccc");
                 json_data = JSON.stringify(data);
                 let link = String("http://" + (window.location.href).split("/")[2]);
                 
@@ -52,10 +54,22 @@
                 xhr.open("POST", link + "/user");
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.send(json_data);
+
                 xhr.onreadystatechange = function(){
                     response_requests++;
                     if(xhr.status == 409){
-                        $("#user_name").css("border-color", "red");
+                        response = JSON.parse(xhr.response)
+                        var msg = " already in use";
+                        if((response.Response[1]).includes("user_name")){
+                            $("#user_name").css("border-color", "red");
+                            msg = " and username" + msg;
+                        }
+                        if((response.Response[1]).includes("email")){
+                            $("#email").css("border-color", "red");
+                            msg = " and email" + msg;
+                        }
+                        msg = msg.substring(5, msg.length);
+                        $("#user_error_msg").html(msg);
                         $("#user_error_msg").fadeIn("fast");
                     }
                     if(xhr.status == 200){
@@ -72,19 +86,41 @@
                                 link + "/token", 
                                 login_data,
                                 function(returnData){
-                                    try{
-                                        localStorage.setItem("token", JSON.stringify(returnData));
-                                        window.location.href = link + "/villageView";
-                                    }catch($e){}
+                                    setCookie("token", returnData["access_token"], 1);
+                                    setCookie("user_name", data.name, 1);
+                                    window.location.href = link + "/villageView";
                                 }
                             );
                         }
                     }
-                };
+                }
+            }
+            function setCookie(cname, cvalue, exdays) {
+                const d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                let expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            }
+            function getCookie(cname) {
+                let name = cname + "=";
+                let decodedCookie = decodeURIComponent(document.cookie);
+                let ca = decodedCookie.split(';');
+                for(let i = 0; i <ca.length; i++) {
+                    let c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
             }
             function pass_is_valid(password){                    
                 if(password.length > 8){
                     if(password == $("#password_two").val()){
+                        $("#password_one").css("border-color", "#bbbccc");
+                        $("#password_two").css("border-color", "#bbbccc");
+                        $("#password_requirements").fadeOut("fast");
                         return true;
                     }
                 } 
@@ -96,15 +132,16 @@
 
             function mail_is_valid(email){
                 var at = email.split("@");
-                if(at[0].length > 0 && at[1].length > 0){
+                if(at.length > 1){
                     var dot = at[1].split(".");
-                    if(dot[0].length > 0 && dot[1].length > 0){
+                    if(dot.length > 1){
+                        $("#email").css("border-color", "#bbbccc");
+                        $("#email_requirements").fadeOut("fast");
                         return true;
                     }
                 }
-                $("#password_one").css("border-color", "red");
-                $("#password_two").css("border-color", "red");
-                $("#password_requirements").fadeIn("fast");
+                $("#email").css("border-color", "red");
+                $("#email_requirements").fadeIn("fast");
                 return false;
             }
         </script>

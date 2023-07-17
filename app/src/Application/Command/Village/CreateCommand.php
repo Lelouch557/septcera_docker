@@ -8,11 +8,13 @@ declare(strict_types=1);
 
 namespace App\Application\Command\Village;
 
+use App\Domain\Model\User\User;
 use Ramsey\Uuid\UuidInterface;
 
 final class CreateCommand {
     public function __construct(
         private readonly UuidInterface $id,
+        private readonly User $user,
         private readonly string $name,
         private readonly string $type,
         private readonly int $x,
@@ -22,6 +24,10 @@ final class CreateCommand {
 
     public function getId(): UuidInterface {
         return $this->id;
+    }
+
+    public function getUser(): User {
+        return $this->user;
     }
 
     public function getName(): string {

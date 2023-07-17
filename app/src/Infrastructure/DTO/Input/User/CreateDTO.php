@@ -19,10 +19,26 @@ final class CreateDTO {
 
     #[Assert\NotBlank]
     #[Assert\Type('string')]
+    #[Assert\Length(
+        min: 8,
+        max: 500,
+        minMessage: 'Passworda must be at least {{ limit }} characters long',
+        maxMessage: 'cannot be longer than {{ limit }} characters',
+    )]
     private $password;
 
     #[Assert\NotBlank]
     #[Assert\Type('string')]
+    #[Assert\Regex(
+        pattern: '/@/',
+        match: true,
+        message: 'Passworda must contain a "@"',
+    )]
+    #[Assert\Regex(
+        pattern: '/.*\./',
+        match: true,
+        message: 'Passworda must contain a "."',
+    )]
     private $email;
 
     public function __construct(
