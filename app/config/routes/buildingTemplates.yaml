@@ -1,0 +1,9 @@
+﻿createBuildingTemplate:
+    path: /buildingTemplate
+    methods: [POST]
+    controller: App\Infrastructure\Action\buildingTemplate\Create
+
+specificBuildingTemplate:
+    path: /buildingTemplate/{parameters}
+    methods: [GET]
+    controller: App\Infrastructure\Action\buildingTemplate\GetSpecific

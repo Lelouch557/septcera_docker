@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is Copyright (c) - Move4Mobile B.V. (https://move4mobile.com)
+ * This file is Copyright
  */
 
 declare(strict_types=1);

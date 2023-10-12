@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is Copyright (c) - Move4Mobile B.V. (https://move4mobile.com)
+ * This file is Copyrig
  */
 
 declare(strict_types=1);
@@ -24,14 +24,6 @@ final class ChatOutputDTO implements \JsonSerializable {
         return $this->Chat->getId()->toString();
     }
 
-    public function getName(): string {
-        return $this->Chat->getName();
-    }
-
-    public function getEmail(): string {
-        return $this->Chat->getEmail();
-    }
-
     public function getCreatedAt(): string {
         return $this->Chat->getCreatedAt()->format('c');
     }
@@ -43,8 +35,6 @@ final class ChatOutputDTO implements \JsonSerializable {
     public function jsonSerialize(): mixed {
         return [
             'id' => $this->getId(),
-            'name' => $this->getName(),
-            'email' => $this->getEmail(),
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),
         ];

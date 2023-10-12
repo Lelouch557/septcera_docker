@@ -1,16 +1,11 @@
 <?php
 
-/*
- * This file is Copyright (c) - Move4Mobile B.V. (https://move4mobile.com)
- */
-
 declare(strict_types=1);
 
 namespace App\Application\Exception;
 
 use App\Domain\Exception\ExceptionCodes;
 use Exception;
-use Throwable;
 
 final class EntityAlreadyExistsException extends Exception 
 {

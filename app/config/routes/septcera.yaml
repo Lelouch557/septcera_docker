@@ -1,0 +1,11 @@
+﻿createBuilding:
+    path: /building
+    methods: [POST]
+    controller: App\Infrastructure\Action\Building\Create
+
+specificBuilding:
+    path: /building
+    methods: [GET]
+    controller: App\Infrastructure\Action\Building\GetSpecific
+
+

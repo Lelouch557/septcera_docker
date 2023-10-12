@@ -6,6 +6,7 @@
 
 namespace App\Domain\Model\Chat;
 
+use DateTime;
 use Ramsey\Uuid\UuidInterface;
 
 class Chat {
@@ -20,11 +21,11 @@ class Chat {
         return $this->id;
     }
 
-    public function getCreatedAt(): void {
-        $this->createdAt = $this->createdAt;
+    public function getCreatedAt(): DateTime {
+        return $this->createdAt;
     }
 
-    public function getUpdatedAt(): void {
-        $this->updatedAt = $this->updatedAt;
+    public function getUpdatedAt(): DateTime {
+        return $this->updatedAt;
     }
 }
