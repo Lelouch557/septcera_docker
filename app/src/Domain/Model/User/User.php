@@ -90,4 +90,28 @@ class User implements PasswordAuthenticatedUserInterface {
     public function setUpdatedAt(): void {
         $this->updatedAt = new \DateTime();
     }
+
+    public function __toString()
+    {
+        return printf('
+            id = %s, 
+            name = %s, 
+            password = %s, 
+            email = %s, 
+            confirmationKey = %s, 
+            status = %s, 
+            roles = %s, 
+            createdAt = %s, 
+            updatedA = %s',
+            $this->id,
+            $this->name,
+            $this->password,
+            $this->email,
+            $this->confirmationKey,
+            $this->status,
+            $this->roles,
+            $this->createdAt,
+            $this->updatedAt
+        );
+    }
 }

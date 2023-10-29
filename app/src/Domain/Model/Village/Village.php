@@ -65,4 +65,26 @@ class Village {
     public function setUpdatedAt(): void {
         $this->updatedAt = new \DateTime();
     }
+
+    public function __toString()
+    {
+        return printf('
+            id = %s,
+            user = %s,
+            name = %s,
+            type = %s,
+            x = %s,
+            y = %s,
+            createdAt = %s,
+            updatedAt = %s',
+            $this->id,
+            $this->user->getId(),
+            $this->name,
+            $this->type,
+            $this->x,
+            $this->y,
+            $this->createdAt,
+            $this->updatedAt
+        );
+    }
 }

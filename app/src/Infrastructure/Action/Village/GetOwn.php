@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Action\Village;
 
+use App\Application\Command\Resource\IterateResourcesCommand;
+use App\Application\Command\User\IterateResourcesHandler;
 use App\Application\Query\Village\SpecificQuery;
 use App\Infrastructure\DTO\Input\Village\GetSpecificDTO;
 use App\Infrastructure\DTO\Output\Village\SpecificOutputDTO;
@@ -20,18 +22,22 @@ class GetOwn {
     use HandleTrait;
 
     public function __construct(
-        MessageBusInterface $queryBus,
-        CurrentAdminService $currentAdminService
+        private MessageBusInterface $queryBus,
+        private MessageBusInterface $commandBus,
+        private CurrentAdminService $currentAdminService
     ) {
-        $this->currentAdminService = $currentAdminService;
-        $this->messageBus = $queryBus;
     }
 
     public function __invoke(): JsonResponse {
+        $this->messageBus = $this->commandBus;
+        $a = $this->handle(new IterateResourcesCommand());
+        print_r($a);
+        die();
+        $this->messageBus = $this->queryBus;
+
         $data = $this->handle(new SpecificQuery(
             ["user" => $this->currentAdminService->getCurrentUser()]
-        )
-        );
+        ));
 
         $returnData = [];
 
@@ -45,8 +51,8 @@ class GetOwn {
 // basis kosten incl. BTW
 // server - door klant bepaald
 // slim - 95 | 8p/m
-// plus - 190 | 16p/m
-// pro - 385 |  33p/m
+// plus - 190 | 16p/m`
+// pro - 385 |  33p/m`
 
 // URL - Verschilt.
 // ~11 | 1 p/m

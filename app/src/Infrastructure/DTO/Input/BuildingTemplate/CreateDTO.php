@@ -23,6 +23,10 @@ final class CreateDTO {
     #[Assert\Type('string')]
     private $effect;
 
+    #[Assert\NotBlank]
+    #[Assert\Type('string')]
+    private $resource;
+
     public function __construct(
         private readonly RequestStack $requestStack,
         private Validator $DTOInterface
@@ -33,6 +37,7 @@ final class CreateDTO {
         try{
             $this->name = $data['name'];
             $this->effect = $data['effect'];
+            $this->resource = $data['resource'];
         }catch(Exception $e){}
 
         $this->DTOInterface->validate($this);
