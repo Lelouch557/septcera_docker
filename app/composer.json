@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.7",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.13",
+        "friendsofphp/php-cs-fixer": "^3.39",
         "league/oauth2-server-bundle": "^0.4.1",
         "ramsey/uuid": "^4.6",
         "ramsey/uuid-doctrine": "^1.8",
@@ -35,7 +36,6 @@
         "phpro/grumphp": "^1.13",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "fakerphp/faker": "^1.20",
-        "friendsofphp/php-cs-fixer": "^3.12",
         "symfony/maker-bundle": "^1.47"
     },
     "config": {

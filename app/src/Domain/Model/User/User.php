@@ -1,14 +1,10 @@
 <?php
-
 /*
  * mine -André
  */
-
 namespace App\Domain\Model\User;
-
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
 class User implements PasswordAuthenticatedUserInterface {
     public function __construct(
         private UuidInterface $id,
@@ -22,86 +18,17 @@ class User implements PasswordAuthenticatedUserInterface {
         private \DateTime $updatedAt
     ) {
     }
-
-    public function getId(): UuidInterface {
-        return $this->id;
-    }
-
-    public function getName(): string {
-        return $this->name;
-    }
-
-    public function getPassword(): string {
-        return $this->password;
-    }
-
-    public function getEmail(): string {
-        return $this->email;
-    }
-
-    public function getConfirmationKey(): string {
-        return $this->confirmationKey;
-    }
-
-    public function getStatus(): string {
-        return $this->status;
-    }
-
-    public function getRoles(): array {
-        return $this->roles;
-    }
-
-    public function getCreatedAt(): \DateTime {
-        return $this->createdAt;
-    }
-
-    public function getUpdatedAt(): \DateTime {
-        return new \DateTime();
-    }
-
-    public function setId(UuidInterface $id): void {
-        $this->id = $id;
-    }
-
-    public function setName(string $name): void {
-        $this->name = $name;
-    }
-
-    public function setPassword(string $password): void {
-        $this->password = $password;
-    }
-
-    public function setEmail(string $email): void {
-        $this->email = $email;
-    }
-
-    public function setConfirmationKey(string $confirmationKey): void {
-        $this->confirmationKey = $confirmationKey;
-    }
-
-    public function setStatus(string $status): void {
-        $this->status = $status;
-    }
-
-    public function setRoles(array $roles): void {
-        $this->roles = $roles;
-    }
-
-    public function setUpdatedAt(): void {
-        $this->updatedAt = new \DateTime();
-    }
-
     public function __toString()
     {
         return printf('
-            id = %s, 
-            name = %s, 
-            password = %s, 
-            email = %s, 
-            confirmationKey = %s, 
-            status = %s, 
-            roles = %s, 
-            createdAt = %s, 
+            id = %s,
+            name = %s,
+            password = %s,
+            email = %s,
+            confirmationKey = %s,
+            status = %s,
+            roles = %s,
+            createdAt = %s,
             updatedA = %s',
             $this->id,
             $this->name,
@@ -113,5 +40,77 @@ class User implements PasswordAuthenticatedUserInterface {
             $this->createdAt,
             $this->updatedAt
         );
+    }
+
+    public function getId(): UuidInterface {
+        return $this->id;
+    }
+
+    public function setId(UuidInterface $id): void {
+        $this->id = $id;
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+
+    public function getPassword(): string {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void {
+        $this->password = $password;
+    }
+
+    public function getEmail(): string {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void {
+        $this->email = $email;
+    }
+
+    public function getConfirmationKey(): string {
+        return $this->confirmationKey;
+    }
+
+    public function setConfirmationKey(string $confirmationKey): void {
+        $this->confirmationKey = $confirmationKey;
+    }
+
+    public function getStatus(): string {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): void {
+        $this->status = $status;
+    }
+
+    public function getRoles(): array {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): void {
+        $this->roles = $roles;
+    }
+
+    public function getCreatedAt(): \DateTime {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): void {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): \DateTime {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt): void {
+        $this->updatedAt = $updatedAt;
     }
 }

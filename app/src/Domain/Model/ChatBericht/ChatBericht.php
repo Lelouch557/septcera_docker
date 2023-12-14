@@ -1,15 +1,11 @@
 <?php
-
 /*
  * mine -André
  */
-
 namespace App\Domain\Model\ChatBericht;
-
 use App\Domain\Model\Chat\Chat;
 use App\Domain\Model\User\User;
 use Ramsey\Uuid\UuidInterface;
-
 class ChatBericht {
     public function __construct(
         private UuidInterface $id,
@@ -20,28 +16,46 @@ class ChatBericht {
         private \DateTime $updatedAt
     ) {
     }
-
     public function getId(): UuidInterface {
         return $this->id;
     }
-
     public function getChat(): Chat {
         return $this->chat;
     }
-
     public function getUser(): User {
         return $this->user;
     }
-
     public function getText(): string {
         return $this->text;
     }
-
     public function getCreatedAt(): \DateTime {
         return $this->createdAt;
     }
-
     public function getUpdatedAt(): \DateTime {
         return $this->updatedAt;
+    }
+
+    public function setId(UuidInterface $id): void {
+        $this->id = $id;
+    }
+
+    public function setChat(Chat $chat): void {
+        $this->chat = $chat;
+    }
+
+    public function setUser(User $user): void {
+        $this->user = $user;
+    }
+
+    public function setText(string $text): void {
+        $this->text = $text;
+    }
+
+    public function setCreatedAt(\DateTime $createdAt): void {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt): void {
+        $this->updatedAt = $updatedAt;
     }
 }
