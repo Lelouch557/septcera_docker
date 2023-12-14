@@ -1,0 +1,27 @@
+<div id='leftSection'>
+    {# <div id='busyDiv' style='background-image:url(busy.png)'></div> #}
+    <div class='headerDiv'><p>580</p></div>
+    <div class='headerDiv'><p>{{developed}} / {{size}}</p></div>
+    {% for districtName, districtSize in Districts %}
+        <div class='DistrictCategory' id='{{districtName}}' onclick='buildDistrict("{{districtName}}")'>
+            <div class='BigBox' style="background-image:url({{districtName}}.png)"></div>
+            <div class='SmallBoxes'>
+                {% if districtName == 'orange' %}
+                    <p id='sateliteCount'>{{districtSize}}</p>
+                {% else %}
+                    {% for i in 1 .. DistrictAmount %}
+                        {% if i <= districtSize %}
+                            <div class='SmallBox' style="background-image:url({{districtName}}-small.png)">
+                            </div>
+                        {% else %}
+                            <div class='SmallBox'>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+    <div id='details'>
+    </div>
+</div>

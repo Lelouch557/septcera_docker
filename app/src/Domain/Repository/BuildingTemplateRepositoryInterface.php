@@ -10,7 +10,7 @@ use App\Domain\Model\BuildingTemplate\BuildingTemplate;
 use Ramsey\Uuid\UuidInterface;
 
 interface BuildingTemplateRepositoryInterface {
-    public function pick(UuidInterface $parameters): BuildingTemplate;
+    public function pick(UuidInterface $parameters): ?BuildingTemplate;
 
     public function get(array $parameters): array;
 

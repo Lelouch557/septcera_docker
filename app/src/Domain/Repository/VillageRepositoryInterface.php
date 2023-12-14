@@ -9,6 +9,8 @@ namespace App\Domain\Repository;
 use App\Domain\Model\Village\Village;
 
 interface VillageRepositoryInterface {
+    public function pick(array $parameters): ?Village;
+
     public function getSpecific(array $parameters): array;
 
     public function getSpecificOne(array $parameters): ?Village;

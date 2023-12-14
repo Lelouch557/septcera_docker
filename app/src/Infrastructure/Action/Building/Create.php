@@ -32,7 +32,7 @@ class Create {
         $id = Uuid::uuid4();
         $this->handle(new CreateCommand(
             $id,
-            $this->createDTO->getBuildingId(),
+            $this->createDTO->getBuilding(),
             $this->createDTO->getVillageId()
         ));
 

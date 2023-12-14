@@ -2,17 +2,24 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         <link href="{{ asset('CSS/Main.css') }}" rel="stylesheet" />
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        </style>
         {% block stylesheets %}{% endblock %}
         <style>
             body {
                 font-size: 1vw;
+                font-family: 'Roboto', sans-serif;
+                height: 100%;
+                width: 100%;
             }
             #footer{
                 height: 5%;
-                background-color: red;
+                background-color: #000160;
                 position: fixed;
                 width: 100%;
                 bottom: 0;
+                z-index: -1;
             }
             #chat{
                 width: 30%;
@@ -49,17 +56,20 @@
                 width: fit-content;
                 margin: auto;
             }
+            .headerDiv {
+                width: 90px;
+            }
         </style>
     </head>
     <body>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="{{ asset('Javascript/chat.js') }}"></script>
-        <div class="header">
+        <!--<div class="header">
             <div id="profile_settings">
                 <label class="userName" onclick="toggleProfileOptions()"></label>
                 <label class="hiddenProfileOptions" id="logout" onclick="log_out()">logout</label>
             </div>
-        </div>
+        </div>-->
         {% block body %}{% endblock %}
         <div id="footer">
             <div id="chat" onclick="toggleChatOverview()">
@@ -75,6 +85,7 @@
             </div>
         </div>
         <script>
+            const link = "http://minervia.nl";
             function setCookie(cname, cvalue, exdays) {
                 const d = new Date();
                 d.setTime(d.getTime() + (exdays*24*60*60*1000));

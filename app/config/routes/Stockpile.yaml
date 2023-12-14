@@ -1,0 +1,4 @@
+﻿specificStockpile:
+    path: /stockpile
+    methods: [GET]
+    controller: App\Infrastructure\Action\Stockpile\GetSpecific

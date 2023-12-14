@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 final class CreateDTO {
     #[Assert\NotBlank]
     #[Assert\Type('string')]
-    private $building_id;
+    private $building;
 
     #[Assert\NotBlank]
     #[Assert\Type('string')]
@@ -31,15 +31,15 @@ final class CreateDTO {
         $data = json_decode($content, true);
 
         try{
-            $this->building_id = $data['building_id'];
+            $this->building = $data['building'];
             $this->village_id = $data['village_id'];
         }catch(Exception $e){}
 
         $this->DTOInterface->validate($this);
     }
 
-    public function getBuildingId() {
-        return Uuid::fromString($this->building_id);
+    public function getBuilding(): string{
+        return $this->building;
     }
 
     public function getVillageId() {

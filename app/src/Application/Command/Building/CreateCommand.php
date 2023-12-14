@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 final class CreateCommand {
     public function __construct(
         private readonly UuidInterface $id,
-        private readonly UuidInterface $buildingTemplateId,
+        private readonly string $building,
         private readonly UuidInterface $villageId
     ) {
     }
@@ -22,8 +22,8 @@ final class CreateCommand {
         return $this->id;
     }
 
-    public function getBuildingTemplateId(): UuidInterface {
-        return $this->buildingTemplateId;
+    public function getBuildingname(): string {
+        return $this->building;
     }
 
     public function getVillageId(): UuidInterface {

@@ -6,10 +6,11 @@
 
 namespace App\Domain\Model\Village;
 
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use App\Domain\Model\User\User;
 use Ramsey\Uuid\UuidInterface;
 
-class Village {
+class Village extends DatabaseEntry{
     public function __construct(
         private UuidInterface $id,
         private User $user,

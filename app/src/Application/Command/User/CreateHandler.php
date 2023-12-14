@@ -12,11 +12,13 @@ use App\Application\Command\Village\CreateCommand as VillageCreateCommand;
 use App\Application\Exception\EntityAlreadyExistsException;
 use App\Domain\Model\User\User;
 use App\Domain\Repository\UserRepositoryInterface;
+use Doctrine\ORM\Query\Expr\Math;
 use Exception;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Validator\Constraints\Range;
 
 class CreateHandler {
     use HandleTrait;
@@ -68,10 +70,37 @@ class CreateHandler {
         $this->handle(new VillageCreateCommand(
             Uuid::uuid4(),
             $user,
-            $user->getName() . "'s village",
+            $this->createName(),
             "city",
             0,
             0
         ));
+    }
+    private function createName(){
+        $klinker = ['a','e','i','o','u'];
+        $medeKlinker = [ 'b','c','d','f','g','h','j','k','l','m','p','q','r','s','t','v','w','x','y','z'];
+        $letterTypes = [$medeKlinker, $klinker];
+        $word = "";
+
+        $itteration = 0;
+        $itterated = False;
+        $wordLength =  random_int(3,random_int(4,15));
+
+        for($itteration = 0; $itteration < $wordLength; $itteration++){
+            if($itteration % 2 == 1 && !$itterated){
+                $rnd = random_int(0, 10);
+                if ($rnd > 5){
+                    $itterated = True;
+                    $itteration -= 1;
+                    $word = $word . $letterTypes[0][random_int(0, 19)];
+                    continue;
+                }
+            }
+
+            $itterated = False;
+            $arr = $letterTypes[$itteration % 2];
+            $word = $word . $arr[random_int(0,count($arr)-1)];
+        }
+        return $word;
     }
 }

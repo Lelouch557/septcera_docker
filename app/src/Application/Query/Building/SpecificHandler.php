@@ -18,7 +18,8 @@ class SpecificHandler {
 
     public function __invoke(SpecificQuery $query) {
         $parameters = $query->getParameters();
-        
+        // print_r($parameters);
+        // die;
         return $this->buildingRepositoryInterface->get($parameters);
     }
 }

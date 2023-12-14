@@ -6,56 +6,74 @@
 
 namespace App\Domain\Model\Millitary;
 
-use App\Domain\Model\Map\Coordinate;
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use Ramsey\Uuid\UuidInterface;
 
-class Unit {
+class Unit extends DatabaseEntry{
     public function __construct(
         private UuidInterface $id,
-        private Legion $legion,
-        private Coordinate $coordinate,
+        private string $name,
+        private int $offence,
+        private int $defense,
+        private int $hp,
         private \DateTime $createdAt,
         private \DateTime $updatedAt
     ) {
     }
 
-    public function idGet(): UuidInterface {
+    public function getId(): UuidInterface {
         return $this->id;
     }
 
-    public function idSet(UuidInterface $id) {
-        $this->id = $id;
-    }
-
-    public function legionGet(): Legion {
-        return $this->legion;
-    }
-
-    public function legionSet(Legion $legion) {
-        $this->legion = $legion;
-    }
-
-    public function coordinateGet(): Coordinate {
-        return $this->coordinate;
-    }
-
-    public function coordinateSet(Coordinate $coordinate) {
-        $this->coordinate = $coordinate;
-    }
-
-    public function createdAtGet(): \DateTime {
+    public function getCreatedAt(): \DateTime {
         return $this->createdAt;
     }
 
-    public function createdAtSet(\DateTime $createdAt) {
+    public function getUpdatedAt(): \DateTime {
+        return new \DateTime();
+    }
+
+    public function setName($name): void {
+        $this->name = $name;
+    }
+
+    public function setOffence($offence): void {
+        $this->offence = $offence;
+    }
+
+    public function setDefense($defense): void {
+        $this->defense = $defense;
+    }
+
+    public function setHp($hp): void {
+        $this->hp = $hp;
+    }
+
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function getOffence(): int {
+        return $this->offence;
+    }
+
+    public function getDefense(): int {
+        return $this->defense;
+    }
+
+    public function getHp(): int {
+        return $this->hp;
+    }
+
+    public function setCreatedAt($createdAt): void {
         $this->createdAt = $createdAt;
     }
 
-    public function updatedAtGet(): \DateTime {
-        return $this->updatedAt;
-    }
-
-    public function updatedAtSet(\DateTime $updatedAt) {
+    public function setUpdatedAt($updatedAt): void {
         $this->updatedAt = $updatedAt;
     }
 }

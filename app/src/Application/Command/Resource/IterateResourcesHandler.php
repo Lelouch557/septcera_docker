@@ -14,6 +14,7 @@ use App\Domain\Repository\BuildingTemplateRepositoryInterface;
 use App\Domain\Repository\GenericRepositoryInterface;
 use App\Domain\Repository\VillageRepositoryInterface;
 use DateTime;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Messenger\HandleTrait;
 
 class IterateResourcesHandler {
@@ -27,15 +28,15 @@ class IterateResourcesHandler {
         ) {
     }
 
-    public function __invoke(IterateResourcesCommand $command): int {
-        $amountUpdated = 0;
+    public function __invoke(IterateResourcesCommand $command): void {
         $compareDate = new DateTime();
-        
+        $newStockpile = False;
         $villages = $this->villageRepo->getSpecific([]);
 
         foreach($villages as $village){
             $buildings = $this->buildingRepo->get(['village' => $village]);
 
+            /** @var Building $building */
             foreach($buildings as $building){
                 $buildingTemplates = $this->buildingTemplateRepo->get(['id' => $building->getBuilding()->getId()]);
 
@@ -48,21 +49,30 @@ class IterateResourcesHandler {
                     ]);
 
                     if($stockpile == NULL){
-                        break;
+                        $newStockpile = true;
+                        $newId = Uuid::uuid4();
+                        $stockpile = new Stockpile(
+                            $newId,
+                            $village,
+                            $buildingTemplate->getResource(),
+                            0,
+                            $compareDate,
+                            $compareDate
+                        );
                     }
-                    $compared = $compareDate->diff($stockpile->getUpdatedAt());
-                    $days = date_interval_format($compared, '%a');
 
-                    if( $days < 1){
+                    $compared = $compareDate->diff($stockpile->getUpdatedAt());
+                    $days = date_interval_format($compared, '%i');
+
+                    if( $days < 1 && !$newStockpile){
                         break;
                     }
-                    $amountUpdated++;
-                    $stockpile->setAmount($stockpile->getAmount() + ($buildingTemplate->getEffect() * $days));
+                    $newStockpile = False;
+                    $stockpile->setAmount($stockpile->getAmount() + ($buildingTemplate->getEffect() * $days * $building->getAmount()));
                     $stockpile->setUpdatedAt();
                     $this->stockpileRepo->set($stockpile);
                 }
             }
         }
-        return $amountUpdated;
     }
 }

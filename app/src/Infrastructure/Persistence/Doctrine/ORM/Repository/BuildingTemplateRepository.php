@@ -17,7 +17,7 @@ class BuildingTemplateRepository implements BuildingTemplateRepositoryInterface 
         ) {
     }
 
-    public function pick(UuidInterface $id): BuildingTemplate {
+    public function pick(UuidInterface $id): ?BuildingTemplate {
         return $this->em->getRepository(BuildingTemplate::class)->find($id);
     }
 

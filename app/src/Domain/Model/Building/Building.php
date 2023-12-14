@@ -15,6 +15,7 @@ class Building {
         private UuidInterface $id,
         private BuildingTemplate $buildingTemplate,
         private Village $village,
+        private int $amount,
         private \DateTime $createdAt,
         private \DateTime $updatedAt
     ) {
@@ -30,6 +31,10 @@ class Building {
 
     public function getVillage(): Village {
         return $this->village;
+    }
+
+    public function getAmount(): int {
+        return $this->amount;
     }
 
     public function getCreatedAt(): \DateTime {
@@ -48,7 +53,24 @@ class Building {
         $this->village = $village;
     }
 
+    public function setAmount(int $amount): void {
+        $this->amount = $amount;
+    }
+
     public function setUpdatedAt(\DateTime $updatedAt): void {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function __toString()
+    {
+        $msg = '';
+        
+        $msg .= '\r\n'.$this->id;
+        $msg .= '\r\n'.$this->buildingTemplate;
+        $msg .= '\r\n'.$this->village;
+        $msg .= '\r\n'.$this->amount;
+        $msg .= '\r\n'.$this->createdAt;
+        $msg .= '\r\n'.$this->updatedAt;
+        return $msg;
     }
 }

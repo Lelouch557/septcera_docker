@@ -27,10 +27,9 @@ class GetByVillage {
     }
 
     public function __invoke(): JsonResponse {
-    
         $data = $this->handle(new SpecificQuery(
-            id: $this->getByVillageDTO->getBuildingId(),
-            template: $this->getByVillageDTO->getTemplateId(),
+            id: null,
+            template: null,
             village: $this->getByVillageDTO->getVillageId()
         ));
 

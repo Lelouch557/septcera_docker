@@ -31,8 +31,7 @@ class GetOwn {
     public function __invoke(): JsonResponse {
         $this->messageBus = $this->commandBus;
         $a = $this->handle(new IterateResourcesCommand());
-        print_r($a);
-        die();
+        
         $this->messageBus = $this->queryBus;
 
         $data = $this->handle(new SpecificQuery(
@@ -48,27 +47,3 @@ class GetOwn {
         return new JsonResponse($returnData);
     }
 }
-// basis kosten incl. BTW
-// server - door klant bepaald
-// slim - 95 | 8p/m
-// plus - 190 | 16p/m`
-// pro - 385 |  33p/m`
-
-// URL - Verschilt.
-// ~11 | 1 p/m
-
-// werk geleverd - door minervia bepaald
-// slim - (200) 405 | 34p/m
-// plus - (400) 817 | 69p/m
-// pro - (600) 1225 | 103p/m
-
-// S = slim A = plus B = pro U = URL
-// SSU = 511 | 43 p/m
-// SAU = 934 | 78 p/m
-// SBU = 1231 |  112 p/m
-// ASU = 606 | 51 p/m
-// AAU = 1018 | 86 p/m
-// ABU = 1426 | 120 p/m
-// BSU = 801 | 68 p/m
-// BAU = 1213 | 103 p/m
-// BBU = 1621 | 137 p/m

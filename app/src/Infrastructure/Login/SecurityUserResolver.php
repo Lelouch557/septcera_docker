@@ -30,6 +30,7 @@ class SecurityUserResolver extends AbstractController implements UserInterface, 
         if (null === $user || !($user instanceof PasswordAuthenticatedUserInterface)) {
             return;
         }
+
         if (!$this->userPasswordHasher->isPasswordValid($user, $event->getPassword())) {
             return;
         }

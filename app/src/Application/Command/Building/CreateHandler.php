@@ -26,38 +26,38 @@ final class CreateHandler {
     public function __invoke(CreateCommand $command) {
         $village = $this->villagegRepo->getSpecificOne(['id' => $command->getVillageId()]);
 
+        if(!$village){
+            throw new EntityDoesNotExistException('village', '');
+        }
+
+        $template = $this->buildingTemplateRepositoryRepo->get(
+            [ 'name' => $command->getBuildingname()]
+        );
+
+        if(!$template){
+            throw new EntityDoesNotExistException('building template', '');
+        }
+
         $buildingExistsCheck = $this->buildingRepo->get([
-            'buildingTemplate' => $command->getBuildingTemplateId(),
+            'buildingTemplate' => $template[0],
             'village' => $village     
         ]);
 
         if($buildingExistsCheck){
-            throw new EntityAlreadyExistsException('building', '');
+            /** @var building $building */
+            $building = $buildingExistsCheck[0];
+            $building->setAmount($building->getAmount() + 1);
+        }else{
+            $building = new Building(
+                $command->getId(),
+                $template[0],
+                $village,
+                1,
+                new \DateTime(),
+                new \DateTime()
+            );
         }
 
-        $village = $this->villagegRepo->getSpecificOne([
-            'id' => $command->getVillageId()
-        ]);
-
-        if($buildingExistsCheck){
-            throw new EntityDoesNotExistException('village', '');
-        }
-
-        $template = $this->buildingTemplateRepositoryRepo->pick(
-            $command->getBuildingTemplateId()
-        );
-
-        if($buildingExistsCheck){
-            throw new EntityDoesNotExistException('building template', '');
-        }
-
-        $building = new Building(
-            $command->getId(),
-            $template,
-            $village,
-            new \DateTime(),
-            new \DateTime()
-        );
         $this->buildingRepo->persist($building);
     }
 }

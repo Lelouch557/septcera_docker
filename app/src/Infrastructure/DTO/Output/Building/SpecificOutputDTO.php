@@ -37,6 +37,10 @@ final class SpecificOutputDTO implements \JsonSerializable {
         return $this->building->getBuilding()->getEffect();
     }
 
+    public function getAmount(): int {
+        return $this->building->getAmount();
+    }
+
     public function getTemplateId(): string {
         return $this->building->getBuilding()->getId()->toString();
     }
@@ -55,6 +59,7 @@ final class SpecificOutputDTO implements \JsonSerializable {
             'type' => $this->getType(),
             'village' => $this->getVillage(),
             'effect' => $this->getEffect(),
+            'amount' => $this->getAmount(),
             'template' => $this->getTemplateId(),
             'created_at' => $this->getCreatedAt(),
             'updated_at' => $this->getUpdatedAt(),

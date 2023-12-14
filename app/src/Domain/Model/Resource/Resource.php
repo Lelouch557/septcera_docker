@@ -6,9 +6,10 @@
 
 namespace App\Domain\Model\Resource;
 
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use Ramsey\Uuid\UuidInterface;
 
-class Resource {
+class Resource extends DatabaseEntry{
     public function __construct(
         private UuidInterface $id,
         private string $name,

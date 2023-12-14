@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{# {% set players = chatters %} #}
+
+{% block stylesheets %}
+<style>
+    #LeftSection{
+        width: 250;
+        height: 100%;
+        color: white;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        background-color: #00028a;
+        border-right:2px solid black;
+    }
+    #headerDiv{
+        width: 110px;
+    }
+    .DistrictCategory {
+        width: 100%;
+        border-top: 2px solid black;
+        display: flex;
+        flex-direction: row;
+        padding-top: 9;
+        padding-bottom: 9px;
+    }
+    .BigBox{
+        width: 72px;
+        height: 72px;
+        margin-left: 15;
+        margin-right: 5px;
+        border: 2px solid black;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .SmallBox {
+        width: 10px;
+        height: 10px;
+        border: 2px solid black;
+        margin: 3px;
+        margin-top: 6px;
+    }
+    .SmallBoxes {
+        width: 150px;
+        height: 70px;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+    body{
+        display:flex;
+        background-image:url({{asset('PlanetBackground3.png')}}); 
+        background-size: cover;
+        overflow: hidden;
+    }
+    #moon{
+    }
+    #details{
+        height:250px;
+        width:250px;
+        border-top:2px solid black;
+    }
+    #centreSection{
+        width: 100%;
+        z-index: -1;
+        position: absolute;
+        font-size: 5em;
+        color: white;
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+    #moon{
+        position: absolute;
+        top: 32.5%;
+        left: 41.5%;
+        animation-duration: 40s;
+        animation-name: rotation;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        width: 2px;
+        display: flex;
+    }
+    #moon div{
+        width:2px;
+        height:2px;
+    }
+    #satelite{
+        animation-duration: 1s;
+        animation-name: blink;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-direction:alternate;
+    }
+    .icon{
+        width:2vw;
+        height:2vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    #resourceWrapper{
+        display: flex;
+        color:white;
+        flex-flow: column;
+    }
+    .collection{
+        display: flex;
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(180deg);
+        }
+    }
+    @keyframes blink {
+        from {
+            background-color:lime;
+        }
+
+        to {
+            background-color:#006f00;
+        }
+    }
+</style>
+{% endblock %}
+{% block body %}
+    <div id="moon"><div style='height:200px'></div><div id='satelite' style='background-color:lightgreen'></div></div>
+    {{ 
+        include('Overviews/PlanetView/Districts.html.twig', {
+            'Districts' : districts,
+            'Developed' : developed,
+            'Size': size,
+            'DistrictAmount': districtAmount
+        })
+    }}
+    {{ 
+        include('Overviews/PlanetView/Stockpile.html.twig', {
+            'Stockpile' : stockpile
+        })
+    }}
+    {{ 
+        include('Overviews/PlanetView/Name.html.twig', {
+            'name': name
+        })
+    }}
+{% endblock %}
+{% block javascript %}
+<script>
+    var inQueue = false;
+    function buildDistrict(id, type){
+        if(inQueue){
+            console.log('sdfg');
+            return;
+        }
+        inQueue = true;
+        
+        token = getCookie('token');
+        body = {
+            "building": id,
+            "village_id": "{{id}}"
+        };
+        typeId = '#' + id + ' .SmallBox';
+        typeSmallPic = 'url(\"' + id + '-small.png\")';
+        
+        var el = $(typeId).filter(function() {
+            return this.style.backgroundImage == typeSmallPic
+            });
+        $(typeId).eq(el.length).css('background-color', 'white');
+
+        $.ajax({
+            url: link + "/building",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            data: JSON.stringify(body), 
+            success: function(data){
+                $(typeId).eq(el.length).css('background-image', typeSmallPic);
+            }
+        }).always(function(data) {
+            inQueue = false;
+        });
+    }
+</script
+{% endblock %}

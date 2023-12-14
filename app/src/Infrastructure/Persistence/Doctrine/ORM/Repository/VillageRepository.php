@@ -16,6 +16,10 @@ class VillageRepository implements VillageRepositoryInterface {
         ) {
     }
 
+    public function pick(array $parameters): ?Village{
+        return $this->em->getRepository(Village::class)->findOneBy($parameters);
+    }
+
     public function getSpecific(array $parameters): array {
         return $this->em->getRepository(Village::class)->findBy($parameters);
     }

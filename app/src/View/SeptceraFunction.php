@@ -10,6 +10,7 @@ namespace App\View;
 
 use App\Infrastructure\Service\CurrentAdminService;
 use Error;
+use ErrorException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\Exception\ClientException;
@@ -24,20 +25,42 @@ class SeptceraFunction {
     private string $token = '';
 
     public function __construct(
-        private CurrentAdminService $adminService
+        private CurrentAdminService $adminService,
+        private RequestStack $stack
     ) {
     }
 
     function getToken():string{
+        $this->unstack();
         return $this->token;
     }
 
-    public function __invoke(RequestStack $requestStack): Response {
-        $requestString = $requestStack->getCurrentRequest()->__toString();
-        $token = explode(";", explode("\r",explode('token=', explode('Cookie:', $requestString)[1])[1])[0])[0];
+    function unstack(){
+        $requestString = $this->stack->getCurrentRequest()->__toString();
+        $autho = explode('Authorization:', $requestString);
+        $token = false;
+        try{
+            if(count($autho) > 1){
+                $token = trim(explode('Connection',trim(explode('Bearer', $requestString)[1]))[0]);
+            }else{
+                $token = (
+                    trim(
+                        explode(
+                            ';', trim(
+                                explode(
+                                    'token=', $requestString
+                                )[1]
+                            )
+                        )[0]
+                    )
+                );
+            }
+        }
+        catch(ErrorException $e){}
         
         if(!$token){
-            return new JsonResponse(['Response'=>'Something went wrong please send this code to the helpdesk: 7289304']);
+            echo 'Something went wrong please send this code to the helpdesk: 891321053';
+            die;
         }else{
             $this->token = $token;
         }
