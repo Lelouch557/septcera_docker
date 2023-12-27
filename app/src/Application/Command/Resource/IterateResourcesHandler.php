@@ -69,7 +69,7 @@ class IterateResourcesHandler {
                     }
                     $newStockpile = False;
                     $stockpile->setAmount($stockpile->getAmount() + ($buildingTemplate->getEffect() * $days * $building->getAmount()));
-                    $stockpile->setUpdatedAt();
+                    $stockpile->setUpdatedAt(new DateTime() );
                     $this->stockpileRepo->set($stockpile);
                 }
             }

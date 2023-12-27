@@ -27,7 +27,7 @@ class VillageView extends AbstractController{
     ) {
     }
     public function __invoke(): Response {
-        $token = 'Bearer ' . $this->functions->getToken();
+        $token = 'Bearer ' . trim($this->functions->getToken());
 
         $villageInfo = $this->client->request(
             'GET',

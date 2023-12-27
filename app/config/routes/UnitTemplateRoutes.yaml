@@ -1,0 +1,14 @@
+createUnitTemplate:
+    path: /createUnitTemplate
+    methods: [POST]
+    controller: App\Infrastructure\Action\UnitTemplate\Create
+
+updateUnitTemplate:
+    path: /updateUnitTemplate
+    methods: [POST]
+    controller: App\Infrastructure\Action\UnitTemplate\Update
+
+deleteUnitTemplate:
+    path: /deleteUnitTemplate
+    methods: [POST]
+    controller: App\Infrastructure\Action\UnitTemplate\Delete

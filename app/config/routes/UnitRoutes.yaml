@@ -1,0 +1,14 @@
+createUnit:
+    path: /createUnit
+    methods: [POST]
+    controller: App\Infrastructure\Action\Unit\Create
+
+updateUnit:
+    path: /updateUnit
+    methods: [POST]
+    controller: App\Infrastructure\Action\Unit\Update
+
+deleteUnit:
+    path: /deleteUnit
+    methods: [POST]
+    controller: App\Infrastructure\Action\Unit\Delete

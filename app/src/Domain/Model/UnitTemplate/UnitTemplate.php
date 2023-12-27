@@ -1,11 +1,16 @@
 <?php
+
+declare(strict_types=1);
 /*
- * mine -André
- */
-namespace App\Domain\Model\Millitary;
-use App\Domain\Model\DatabaseEntry\DatabaseEntry;
+* mine -Andre
+*/
+
+namespace App\Domain\Model\UnitTemplate;
+
 use Ramsey\Uuid\UuidInterface;
-class Unit extends DatabaseEntry{
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
+
+final class UnitTemplate extends DatabaseEntry {
     public function __construct(
         private UuidInterface $id,
         private string $name,
@@ -14,10 +19,10 @@ class Unit extends DatabaseEntry{
         private int $hp,
         private \DateTime $createdAt,
         private \DateTime $updatedAt
-    ) {
+    ){
     }
 
-    public function getId(): UuidInterface {
+    public function getId(): UuidInterface{
         return $this->id;
     }
 
@@ -25,7 +30,7 @@ class Unit extends DatabaseEntry{
         $this->id = $id;
     }
 
-    public function getName(): string {
+    public function getName(): string{
         return $this->name;
     }
 
@@ -33,7 +38,7 @@ class Unit extends DatabaseEntry{
         $this->name = $name;
     }
 
-    public function getOffence(): int {
+    public function getOffence(): int{
         return $this->offence;
     }
 
@@ -41,7 +46,7 @@ class Unit extends DatabaseEntry{
         $this->offence = $offence;
     }
 
-    public function getDefense(): int {
+    public function getDefense(): int{
         return $this->defense;
     }
 
@@ -49,7 +54,7 @@ class Unit extends DatabaseEntry{
         $this->defense = $defense;
     }
 
-    public function getHp(): int {
+    public function getHp(): int{
         return $this->hp;
     }
 
@@ -57,7 +62,7 @@ class Unit extends DatabaseEntry{
         $this->hp = $hp;
     }
 
-    public function getCreatedAt(): \DateTime {
+    public function getCreatedAt(): \DateTime{
         return $this->createdAt;
     }
 
@@ -65,11 +70,11 @@ class Unit extends DatabaseEntry{
         $this->createdAt = $createdAt;
     }
 
-    public function getUpdatedAt(): \DateTime {
+    public function getUpdatedAt(): \DateTime{
         return $this->updatedAt;
     }
 
     public function setUpdatedAt(\DateTime $updatedAt): void {
-        $this->updatedAt = $updatedAt;
+        $this->$updatedAt = $updatedAt;
     }
 }

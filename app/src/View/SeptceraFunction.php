@@ -36,6 +36,8 @@ class SeptceraFunction {
     }
 
     function unstack(){
+        $this->token = $_COOKIE['token'];
+        die;
         $requestString = $this->stack->getCurrentRequest()->__toString();
         $autho = explode('Authorization:', $requestString);
         $token = false;

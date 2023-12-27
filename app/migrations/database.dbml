@@ -1,0 +1,117 @@
+TABLE resource {
+    id CHAR(36)
+    name VARCHAR(255)
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE stockpile {
+    id CHAR(36)
+    resource_id CHAR(36)
+    village_id CHAR(36)
+    amount INT
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE coordinate {
+    id CHAR(36)
+    y INT
+    x INT
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE building {
+    id CHAR(36)
+    amount INT
+    building_template_id CHAR(36)
+    village_id CHAR(36)
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE buildingTemplate {
+    id CHAR(36)
+    name VARCHAR(255)
+    effect VARCHAR(255)
+    created_at DATETIME
+    updated_at DATETIME
+    resource_id CHAR(36)
+}
+
+TABLE village {
+    id CHAR(36)
+    user_id CHAR(36)
+    name VARCHAR(255)
+    type VARCHAR(255)
+    x INT
+    z INT
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE chat_bericht { 
+    id CHAR(36)
+    text VARCHAR(255)
+    chat_id CHAR(36)
+    user_id CHAR(36)
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE user {
+    id CHAR(36)
+    name VARCHAR(255)
+    password VARCHAR(255)
+    email VARCHAR(255)
+    confirmation_key VARCHAR(50)
+    status VARCHAR(50)
+    roles LONGTEXT
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE chat {
+    id CHAR(36)
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE chat_user {
+    id CHAR(36)
+    user_id CHAR(36)
+    chat_id CHAR(36)
+    created_at DATETIME
+    updated_at DATETIME
+}
+
+TABLE unitTemplate{
+    id CHAR(36)
+    name VARCHAR(255)
+    offence INT
+    defense INT
+    hp INT
+    createdAt DATETIME
+    updatedAt DATETIME
+}
+
+TABLE unit{
+    id CHAR(36)
+    unitTemplate CHAR(36)
+    amount INT
+    createdAt DATETIME
+    updatedAt DATETIME
+}
+
+Ref: chat_user.user_id > user.id
+Ref: chat_user.chat_id > chat.id
+Ref: chat_bericht.chat_id > chat.id
+Ref: chat_bericht.user_id > user.id
+Ref: village.user_id > user.id
+Ref: building.building_template_id > buildingTemplate.id
+Ref: building.village_id > village.id
+Ref: stockpile.resource_id > resource.id
+Ref: stockpile.village_id > village.id
+Ref: buildingTemplate.resource_id > resource.id
+Ref: unit.unitTemplate > unitTemplate.id
