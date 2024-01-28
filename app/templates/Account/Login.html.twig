@@ -65,7 +65,32 @@
             form div input {
                 margin-left: 20%;
             }
+            #BackgroundImage img{
+                height: 100%;
+                width: 100%;
+                position:fixed;
+                background: url(smoke.png);
+                opacity: 0.3;
+                animation-name: Moving;
+                animation-duration: 4000s;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear;
+            }
+
+            @keyframes Moving {
+                from {
+                    width:100%;
+                }
+
+                to {
+                    width:1000%;
+                }
+            }
         </style>
+
+        <div id='BackgroundImage'>
+            <img src='smoke2.png' />
+        </div>
 
         <div class="login">
             <form>

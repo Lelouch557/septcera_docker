@@ -10,7 +10,7 @@
         <many-to-one
             target-entity="App\Domain\Model\UnitTemplate\UnitTemplate"
             field="unitTemplate"
-            column="unitTemplate_id"
+            column="unit_template_id"
         />
         <many-to-one
             target-entity="App\Domain\Model\Village\Village"

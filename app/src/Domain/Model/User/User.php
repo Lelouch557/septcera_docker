@@ -3,9 +3,11 @@
  * mine -André
  */
 namespace App\Domain\Model\User;
+
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-class User implements PasswordAuthenticatedUserInterface {
+class User  extends DatabaseEntry implements PasswordAuthenticatedUserInterface  {
     public function __construct(
         private UuidInterface $id,
         private string $name,

@@ -3,9 +3,11 @@
  * mine -André
  */
 namespace App\Domain\Model\BuildingTemplate;
+
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use App\Domain\Model\Resource\Resource;
 use Ramsey\Uuid\UuidInterface;
-class BuildingTemplate {
+class BuildingTemplate extends DatabaseEntry {
     public function __construct(
         private UuidInterface $id,
         private string $name,

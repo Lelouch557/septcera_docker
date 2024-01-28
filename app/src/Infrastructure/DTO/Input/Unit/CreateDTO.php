@@ -25,6 +25,9 @@ final class CreateDTO {
     #[Assert\Type('integer')]
     private int $amount;
 
+    #[Assert\Type('integer')]
+    private ?int $id;
+
     public function __construct(
         private readonly RequestStack $requestStack,
         private Validator $DTOInterface
@@ -35,12 +38,17 @@ final class CreateDTO {
         $this->unitTemplate = $data['unitTemplate'];
         $this->village = $data['village'];
         $this->amount = $data['amount'];
+        $this->id = (in_array('id', $data))? $data['id'] : null;
 
         $this->DTOInterface->validate($this);
     }
 
     public function getUnitTemplate() {
         return $this->unitTemplate;
+    }
+
+    public function getId() {
+        return $this->id;
     }
 
     public function getVillage() {

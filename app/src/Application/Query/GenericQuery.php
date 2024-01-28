@@ -12,19 +12,28 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class GenericQuery{
+    private array $params;
+
     public function __construct(
-        private readonly ?string $id = null,
-        private readonly ?string $template = null,
-        private readonly ?string $village = null
+        private readonly string $class,
+        ...$query
     ) {
+        $this->params = $query;
+    }
+
+    public function getClass(): string {
+        $returnString = 'App\\Domain\\Model\\' . $this->class . '\\' . $this->class;
+        return $returnString;
     }
 
     public function getParameters(): array {
         $ret = [];
 
-        foreach(get_object_vars($this) as $key => $val){
-            if($val){
-                $ret[$key] = $val;
+        foreach($this->params as $item){
+            foreach($item as $key => $val){
+                if($val){
+                    $ret[$key] = $val;
+                }
             }
         }
         

@@ -4,9 +4,10 @@
  */
 namespace App\Domain\Model\Building;
 use App\Domain\Model\BuildingTemplate\BuildingTemplate;
+use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use App\Domain\Model\Village\Village;
 use Ramsey\Uuid\UuidInterface;
-class Building {
+class Building extends DatabaseEntry {
     public function __construct(
         private UuidInterface $id,
         private BuildingTemplate $buildingTemplate,

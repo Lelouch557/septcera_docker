@@ -10,6 +10,7 @@ use App\Domain\Model\BuildingTemplate\BuildingTemplate;
 use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use App\Domain\Model\DBEntry\DBEntry;
 use App\Domain\Model\Stockpile\Stockpile;
+use App\Domain\Model\Unit\Unit;
 use App\Domain\Repository\BuildingTemplateRepositoryInterface;
 use App\Domain\Repository\GenericRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +24,10 @@ class GenericRepository implements GenericRepositoryInterface {
     }
 
     public function pick(string $class, array $parameters): ?DatabaseEntry {
-        $b = $this->em->getRepository($class)->findOneBy($parameters);
+        $b = $this->em->getRepository(Unit::class)->findOneBy(['id' => '73d06c71-a0ee-4254-a508-c53b7319ecb5']);
+        echo($b);
+        die;
+        // $b = $this->em->getRepository($class)->findOneBy($parameters);
         return $b;
     }
 

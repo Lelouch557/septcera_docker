@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,800;8..144,1000&family=Roboto:wght@100;300;400&display=swap');
+
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 15px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #303030;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: black;
+        border-radius: 20px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        html{
+            scroll-behavior: smooth;
+            color:white;
+            background-color:rgb(0, 0, 0);
+            scroll-snap-type: y mandatory;
+        }
+        #one{
+            top:0%;
+            background-repeat: no-repeat;
+    background-image: url(smoke3.png);
+    background-size: contain;
+    background-position-y: center;
+        }
+        #two{
+            top:180%;
+            clip-path: xywh(0 20% 100% 100%);
+        }
+        .stickyPicture{
+            left: 55%;
+            width: 40%;
+            height: 28%;
+            top: 8%;
+            position: sticky;
+        }
+        .pic{
+            width:100%;
+            height:48%;
+            box-shadow: 0 0 20px 0 black;
+        }
+        #pic1{
+            border-radius: 20px;
+            border-top-right-radius: 40px;
+            background-color:blue;
+            background-image: url(art\\Naamloos2.jpg);
+            background-size: cover;
+        }
+        #pic2{
+            top:50%;
+            border-radius: 20px;
+            border-bottom-right-radius: 40px;
+            background-color:red;
+            background-image: url(art\\Naamloos3.jpg);
+            background-size: cover;
+        }
+        .page{
+            height:100%;
+            width:100%;
+        }
+        .stickyPage{
+            clip-path: xywh(0 33% 100% 33%);
+            height:300%;
+        }
+        .stickyText{ 
+            left:5%;
+            width:40%;
+            top:33%;
+            position:sticky;
+        }
+        .spacer{
+            width:100%;
+            box-shadow: 0 0 38px 48px black;
+        }
+        #spacer0{
+            scroll-snap-align:start;
+            box-shadow: 0 0 0px 0px black;
+            top:0%;
+        }
+        #spacer1{
+            scroll-snap-align:start;
+            top:100%;
+        }
+        #spacer2{
+            scroll-snap-align:start;
+            top:200%;
+        }
+        div{
+            position: absolute;
+        }
+        body{
+            margin:0px;
+        }
+        #title{
+            background-image: url("art\\Naamloos2.png");
+            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+        }
+        #title div{
+            /* border-top: 1px solid white; */
+            padding-left: 70px;
+            margin-top: 70px;
+            background: url(art\\Naamloos1.jpg) 0 0 / cover no-repeat;
+            position: sticky;
+            font-size: 70;
+            font-weight: 1000;
+            line-height:70px;
+            text-transform: uppercase;
+            text-shadow: 0px 0px 20px black;
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+        }
+        </style>
+    </head>
+    <body>
+        <div id='title' class='page'>
+            <div>JUST BEYOND</div>
+        </div>
+        <div class='stickyPage' id='one'>
+            <div class='stickyText' id='text'>
+                <p id='1'>Lorem ipsum dolor sit amet,</br></br>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div class='stickyPicture' id='picture'>
+                <div class='pic' id='pic1'>
+                    <img/>
+                </div>
+                <div class='pic' id='pic2'>
+                    <img/>
+                </div>
+            </div>
+        </div>
+        <div class='page' id='two'>
+            <div class='stickyText' >
+                <p id='2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+            </div>
+            <div id='picture'>
+            </div>
+        </div>
+        
+        <div class='spacer' id='spacer0'>
+        </div>
+        <div class='spacer' id='spacer1'>
+        </div>
+        <div class='spacer' id='spacer2'>
+        </div>
+    </body>
+</html>

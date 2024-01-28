@@ -1,5 +1,5 @@
 createUnit:
-    path: /createUnit
+    path: /unit
     methods: [POST]
     controller: App\Infrastructure\Action\Unit\Create
 
@@ -12,3 +12,13 @@ deleteUnit:
     path: /deleteUnit
     methods: [POST]
     controller: App\Infrastructure\Action\Unit\Delete
+
+GetUnitById:
+    path: /unit
+    methods: [GET]
+    controller: App\Infrastructure\Action\Unit\GetById
+
+GetUnitByParams:
+    path: /unit/general
+    methods: [GET]
+    controller: App\Infrastructure\Action\Unit\GetByParams

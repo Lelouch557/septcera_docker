@@ -79,6 +79,16 @@ villageView:
     methods: [GET]
     controller: App\View\Screens\VillageView
 
+testView:
+    path: /test
+    methods: [GET]
+    controller: App\View\TestViesdfw
+
+testView2:
+    path: /test2
+    methods: [GET]
+    controller: App\View\Test2
+
 #general
 basic:
     path: /

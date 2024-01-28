@@ -11,6 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 use App\Domain\Model\DatabaseEntry\DatabaseEntry;
 use App\Domain\Model\UnitTemplate\UnitTemplate;
 use App\Domain\Model\Village\Village;
+use App\Infrastructure\DTO\Output\Unit\UnitOutputDTO;
 
 final class Unit extends DatabaseEntry {
     public function __construct(
@@ -68,6 +69,11 @@ final class Unit extends DatabaseEntry {
     }
 
     public function setUpdatedAt(\DateTime $updatedAt): void {
-        $this->$updatedAt = $updatedAt;
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function __toString()
+    {
+        return  json_encode(new UnitOutputDTO($this));
     }
 }

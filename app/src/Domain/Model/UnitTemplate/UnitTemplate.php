@@ -9,8 +9,10 @@ namespace App\Domain\Model\UnitTemplate;
 
 use Ramsey\Uuid\UuidInterface;
 use App\Domain\Model\DatabaseEntry\DatabaseEntry;
+use App\Infrastructure\DTO\Output\Unit\UnitOutputDTO;
+use App\Infrastructure\DTO\Output\UnitTemplate\UnitTemplateOutputDTO;
 
-final class UnitTemplate extends DatabaseEntry {
+class UnitTemplate extends DatabaseEntry {
     public function __construct(
         private UuidInterface $id,
         private string $name,
@@ -76,5 +78,10 @@ final class UnitTemplate extends DatabaseEntry {
 
     public function setUpdatedAt(\DateTime $updatedAt): void {
         $this->$updatedAt = $updatedAt;
+    }
+
+    public function __toString()
+    {
+        return  json_encode(new UnitTemplateOutputDTO($this));
     }
 }

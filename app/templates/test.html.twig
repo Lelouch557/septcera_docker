@@ -1,31 +1,82 @@
-{% extends "base.html.twig" %}
-
-{% block title %}Village{% endblock %}
-{% block stylesheets %}
-<style>
-    body{
-        background-color: #f4faff;
-    }
-    form{
-        display: grid;
-    }
-    .login{
-        width: 20%;
-        position: absolute;
-        padding: 1em;
-        padding-bottom: 0;
-        box-shadow: 0 0 50px 0px #b8b8b84f;
-        left: 40%;
-        top: 40%;
-        background-color: white;
-        border-radius: 8px;
-    }
-</style>
-{% endblock %}
-{% block body %} 
-    <form class="login">
-        <div><label>type: </label><label id="type">{{city_type}}</label></div>
-        <div><label>name: </label><label id="name">{{name}}</label></div>
-        <div><label>coordinates: </label><label id="coordinates">{{coords}}</label></div>
-    </form>
-{% endblock %}  
+<html>
+    <head>
+        <title></title>
+        <style>
+        body{
+            margin:0px;
+        }
+        .page {
+            contain: strict;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 38px 48px;
+            display: flex;
+            justify-content: space-around;
+            position: absolute;
+        }
+        #test{
+            display:flex;
+        }
+        .page div{
+            width: 40%;
+            display: flex;
+            height: 85%;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #picture div{
+            width: 100%;
+        }
+        #pic1{
+            border-radius: 10px;
+            border-top-right-radius: 30px;
+            background-color: black;
+        }
+        #pic2{
+            border-radius: 10px;
+            border-bottom-right-radius: 30px;
+            background-color: black;
+        }
+        #spacer{
+            height:10%;
+        }
+        #text p{
+            position: sticky;
+            top:36%;
+            width: 40%;
+        }
+        #text{
+            clip-path: xywh(0% 25% 100% 50% );
+            height: 200%;
+            display:block;
+        }
+        #two{
+            top:100%;
+        }
+        </style>
+    </head>
+    <body>
+        <div class='page' id='one'>
+            <div id='text'>
+                <p id='1'>Lorem ipsum dolor sit amet,</br></br>consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+            <div id='picture'>
+                <div id='pic1'>
+                    <img/>
+                </div>
+                <div id='spacer'>
+                </div>
+                <div id='pic2'>
+                    <img/>
+                </div>
+            </div>
+        </div>
+        <div class='page' id='two'>
+            <div id='text'>
+                <p id='2'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+            </div>
+            <div id='picture'>
+            </div>
+        </div>
+    </body>
+</html>
