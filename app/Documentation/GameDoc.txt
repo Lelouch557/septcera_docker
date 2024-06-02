@@ -1,0 +1,90 @@
+economy
+    gain resources
+        buildings
+        raiding
+    transfer resources
+        to other players
+        to other villages
+        
+    lose resources
+        from enemy raiding
+    spend resources
+        trade
+        create troops
+        hire troops
+        create buildings
+        upgrade buildings
+        upgrade troops
+
+diplomacy
+    place other player in a list for thr player to rrmember with notrs
+    talk
+        chatrooms
+    levels of cooperation (war to federation)
+        war
+        neutral
+        alliance
+        federation
+        vassalage
+    treaties
+        reaseach
+        information
+    treatie to end war
+        pay gold
+        pay resources
+        force cooperation level between entities
+    cooperation levels
+        economy
+        science
+            millitairy
+            populli
+        millitary
+        political
+        information 
+            millitary intel
+            diplomatic
+    spionage
+
+millitary
+    gain millitary
+        train troops
+        hire troops
+        gifted from other empire
+    lose millitary
+        gift to other empire
+        lose in battle
+        hire out to other empire
+    create defenses
+        walls
+        outpost
+            Tower
+            outpost
+            fort
+            castle
+        ditches
+            trench
+            ditch
+            moat
+    lose defenses
+        taken over
+        destroyed
+    move millitary
+        attack
+        support
+        raid
+        move
+
+science
+    gain tech
+    gain tech faster
+    share tech
+    steal tech
+
+internal
+    government type
+    loyalty
+    tension
+    economy type
+    infromation control
+    coruption
+    authoritarianism

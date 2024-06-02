@@ -25,7 +25,7 @@ class Create {
     }
 
     public function __invoke(): JsonResponse {
-        $this->handle(new CreateCommand());
+        $this->handle(new CreateCommand('add', 'user'));
 
         return new JsonResponse(['id' => "success"], Response::HTTP_OK);
     }

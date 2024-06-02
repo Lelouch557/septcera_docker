@@ -15,9 +15,9 @@ class GenericCreateCommand{
     public function __construct(
         private readonly string $addOrCreate,
         private readonly string $class,
-        private readonly array $parameters,
-        private readonly array $exclusives,
-        private readonly array $additives
+        private readonly array $parameters = [],
+        private readonly array $exclusives = [],
+        private readonly array $additives = []
     ) {
     }
 

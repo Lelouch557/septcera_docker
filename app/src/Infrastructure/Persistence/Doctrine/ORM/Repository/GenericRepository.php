@@ -24,10 +24,7 @@ class GenericRepository implements GenericRepositoryInterface {
     }
 
     public function pick(string $class, array $parameters): ?DatabaseEntry {
-        $b = $this->em->getRepository(Unit::class)->findOneBy(['id' => '73d06c71-a0ee-4254-a508-c53b7319ecb5']);
-        echo($b);
-        die;
-        // $b = $this->em->getRepository($class)->findOneBy($parameters);
+        $b = $this->em->getRepository($class)->findOneBy($parameters);
         return $b;
     }
 

@@ -93,6 +93,9 @@ testView2:
 basic:
     path: /
     controller: App\View\Account\LoginView
+general:
+    path: /general
+    controller: App\Infrastructure\Action\General
 test:
     path: /test
     controller: App\View\TestViesdfw

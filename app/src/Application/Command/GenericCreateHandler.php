@@ -11,6 +11,7 @@ namespace App\Application\Command;
 use App\Application\Exception\EntityAlreadyExistsException;
 use App\Application\Exception\EntityDoesNotExistException;
 use App\Domain\Model\Unit\Unit;
+use App\Domain\Model\User\User;
 use App\Domain\Repository\GenericRepositoryInterface;
 use DateTime;
 use Exception;
@@ -21,83 +22,105 @@ class GenericCreateHandler{
     ) {
     }
 
-    public function __invoke(GenericCreateCommand $query) {
+    public function __invoke(GenericCreateCommand $command) {
         $modelPrefix = 'App\\Domain\\Model\\';
-        $commandParameters = $query->getParameters();
+        $commandParameters = $command->getParameters();
+        $this->relationsAreValid($command);
+        // if($command->getExclusives() != null){
+        //     if(
+        //         !$this->checkIfExclusive($command->getClass(), $command->getExclusives())
+        //         && $command->getAddOrCreate() != 'ADD'
+        //     ){
+        //         throw new EntityAlreadyExistsException($command->getClass(), '');
+        //     }
+        // }
+
+        // ($command->getAddOrCreate() == 'ADD')? 
+        //     $this->AddToRecord($command, $commandParameters) :
+        //     $this->createNewRecord($command->getClass(), $commandParameters);
+    }
+
+    public function relationsAreValid(GenericCreateCommand $command): bool{
+        $commandParameters = $command->getParameters();
 
         foreach($commandParameters as $key => $parameter){
-            $type = (gettype($parameter) == 'object')? get_class($parameter) : gettype($parameter);
+            if( !$this->isRelation($key, $parameter)){
+                continue;
+            }
             
-            if(
-                $type == "Ramsey\Uuid\Lazy\LazyUuidFromString"
-                && $key != 'id'
-            ){
-                $className = $modelPrefix . $key . '\\' . $key;
-                $record = $this->genericRepository->pick($className, ['id' => $parameter]);
+            print_r( gettype($parameter));
+        }
+        die;
+        return false;
+    }
 
-                if($record == null){
-                    throw new EntityDoesNotExistException($key);
-                }
-
-                $commandParameters[$key] = $this->genericRepository->pick($className, ['id' => $parameter]);
-            }
+    public function isRelation($key, $parameter): bool{
+        if(gettype($parameter) != 'object'){
+            return false;
+        }
+        
+        if(get_class($parameter) != 'Ramsey\Uuid\Lazy\LazyUuidFromString'){
+            return false;
         }
 
-
-        if($query->getExclusives() != null){
-            if(
-                !$this->checkIfExclusive($query->getClass(), $query->getExclusives())
-                && $query->getAddOrCreate() != 'ADD'
-            ){
-                throw new EntityAlreadyExistsException($query->getClass(), '');
-            }
+        if($key == 'id'){
+            return false;
         }
-
-        ($query->getAddOrCreate() == 'ADD')? 
-            $this->AddToRecord($query, $commandParameters) :
-            $this->createNewRecord($query->getClass(), $commandParameters);
+        
+        return true;
     }
 
     public function AddToRecord(GenericCreateCommand $query, array $commandParameters){
-        $paramsExcludedFromUpdate = ['id', 'createdAt'];
 
-        try{
-            /** @var Unit */
-            $record = $this->genericRepository->pick($query->getClass(), ['id' => $commandParameters['id']]);
-        }catch(Exception $e){
-            $record = null;
-        }
+        $this->recordsExists([User::class => '03082dee-5dd1-4ac2-a905-fa068b90e69e']);
+        // $paramsExcludedFromUpdate = ['id', 'createdAt'];
 
-        if($record == null){
-            if($query->getExclusives() != null){
-                $record = $this->genericRepository->pick($query->getClass(), $query->getExclusives());
+        // try{
+        //     /** @var Unit */
+        //     $record = $this->genericRepository->pick($query->getClass(), ['id' => $commandParameters['id']]);
+        // }catch(Exception $e){
+        //     $record = null;
+        // }
+
+        // if($record == null){
+        //     if($query->getExclusives() != null){
+        //         $record = $this->genericRepository->pick($query->getClass(), $query->getExclusives());
                 
-                if($record == null){
-                    $this->createNewRecord($query->getClass(), $commandParameters);
-                    return;
-                }
-            }else{
-                $this->createNewRecord($query->getClass(), $commandParameters);
-                return;
-            }
+        //         if($record == null){
+        //             $this->createNewRecord($query->getClass(), $commandParameters);
+        //             return;
+        //         }
+        //     }else{
+        //         $this->createNewRecord($query->getClass(), $commandParameters);
+        //         return;
+        //     }
+        // }
+
+        // foreach($commandParameters as $key => $param){
+        //     if(in_array($key, $paramsExcludedFromUpdate)){
+        //         continue;
+        //     }
+        //     $functionNameSet = "set" . strtoupper(substr($key,0,1)) . substr($key, 1);
+        //     $functionNameGet = "get" . strtoupper(substr($key,0,1)) . substr($key, 1);
+            
+        //     if(in_array($key, $query->getAdditives())){
+        //         $record->$functionNameSet($param + $record->$functionNameGet());
+        //         continue;
+        //     }
+        //     print_r($query->getExclusives());
+        //     die;
+        //     $record->$functionNameSet($param);
+        // }
+        // $this->genericRepository->set($record);
+    }
+
+    public function recordsExists(array $records): bool{
+        foreach($records as $key => $value){
+        
+            print_r($record = $this->genericRepository->get($key,['status'=>'Active']));
         }
 
-        foreach($commandParameters as $key => $param){
-            if(in_array($key, $paramsExcludedFromUpdate)){
-                continue;
-            }
-            $functionNameSet = "set" . strtoupper(substr($key,0,1)) . substr($key, 1);
-            $functionNameGet = "get" . strtoupper(substr($key,0,1)) . substr($key, 1);
-            
-            if(in_array($key, $query->getAdditives())){
-                $record->$functionNameSet($param + $record->$functionNameGet());
-                continue;
-            }
-            print_r($query->getExclusives());
-            die;
-            $record->$functionNameSet($param);
-        }
-        $this->genericRepository->set($record);
+        return True;
     }
 
     public function createNewRecord($class, $parameters){
